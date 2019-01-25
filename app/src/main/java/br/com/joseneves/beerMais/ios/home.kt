@@ -6,12 +6,18 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 
 class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    private var mRecyclerView: RecyclerView? = null
+    private var mAdapter: RecyclerView.Adapter<*>? = null
+    var listOfusers: ArrayList<Beer> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +36,18 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+
+        for (i in 0..4) {
+            val user = Beer()
+            user.id = i
+            user.name = "Eyehunt $i"
+            listOfusers!!.add(user)
+        }
+        mRecyclerView = findViewById(R.id.my_recycler_view)
+        var mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        mRecyclerView!!.layoutManager = mLayoutManager
+        mAdapter = BeerAdapter(listOfusers)
+        mRecyclerView!!.adapter = mAdapter
     }
 
     override fun onBackPressed() {
