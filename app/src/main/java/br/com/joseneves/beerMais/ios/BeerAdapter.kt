@@ -15,7 +15,7 @@ class BeerAdapter(private val mDataList: ArrayList<Beer>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.tv_login.text = mDataList[position].name
+        holder.brand_textView.text = mDataList[position].name
     }
 
     override fun getItemCount(): Int {
@@ -23,10 +23,10 @@ class BeerAdapter(private val mDataList: ArrayList<Beer>) : RecyclerView.Adapter
     }
 
     inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        internal var tv_login: TextView
+        internal var brand_textView: TextView
 
         init {
-            tv_login = itemView.findViewById<View>(R.id.tv_login) as TextView
+            brand_textView = itemView.findViewById<View>(R.id.brand_textView) as TextView
         }
     }
 }
