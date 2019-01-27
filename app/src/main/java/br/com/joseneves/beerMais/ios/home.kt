@@ -14,7 +14,7 @@ import android.view.View
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 
-class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var beerRecyclerView: RecyclerView? = null
     private var mAdapter: RecyclerView.Adapter<*>? = null
