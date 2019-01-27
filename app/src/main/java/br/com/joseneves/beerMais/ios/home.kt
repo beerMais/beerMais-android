@@ -43,7 +43,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
             user.amount = i
             user.brand = "Brand $i"
             user.amount = i
-            
+
             beers.add(user)
         }
         mRecyclerView = findViewById(R.id.my_recycler_view)
