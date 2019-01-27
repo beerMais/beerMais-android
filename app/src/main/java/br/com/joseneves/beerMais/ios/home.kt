@@ -17,7 +17,7 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     private var mRecyclerView: RecyclerView? = null
     private var mAdapter: RecyclerView.Adapter<*>? = null
-    var listOfusers: ArrayList<Beer> = ArrayList()
+    var beers: ArrayList<Beer> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,13 +40,16 @@ class home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         for (i in 0..4) {
             val user = Beer()
             user.id = i
-            user.name = "Eyehunt $i"
-            listOfusers!!.add(user)
+            user.amount = i
+            user.brand = "Brand $i"
+            user.amount = i
+            
+            beers.add(user)
         }
         mRecyclerView = findViewById(R.id.my_recycler_view)
-        var mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        val mLayoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
         mRecyclerView!!.layoutManager = mLayoutManager
-        mAdapter = BeerAdapter(listOfusers)
+        mAdapter = BeerAdapter(beers)
         mRecyclerView!!.adapter = mAdapter
     }
 
