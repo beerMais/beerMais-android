@@ -1,20 +1,27 @@
 package br.com.joseneves.beerMais.ios
 
+import android.app.Dialog
 import android.graphics.Rect
 import android.os.Bundle
+import android.support.design.widget.BaseTransientBottomBar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.ButtonBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 
 class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    internal lateinit var btn: Button
+    internal lateinit var myDialog: Dialog
 
     private var beerRecyclerView: RecyclerView? = null
     private var mAdapter: RecyclerView.Adapter<*>? = null
@@ -52,6 +59,17 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         beerRecyclerView!!.addItemDecoration(RecyclerViewMargin())
         mAdapter = BeerAdapter(beers)
         beerRecyclerView!!.adapter = mAdapter
+
+        btn = findViewById<View>(R.id.open_modal) as Button
+        btn.setOnClickListener{
+           showModal()
+        }
+    }
+
+    fun showModal() {
+        myDialog = Dialog(this)
+        myDialog.setContentView(R.layout.custom_modal)
+        myDialog.show()
     }
 
     override fun onBackPressed() {
