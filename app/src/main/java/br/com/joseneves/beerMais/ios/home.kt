@@ -95,7 +95,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
     private fun showModal() {
         myDialog = Dialog(this)
-        myDialog.setContentView(R.layout.custom_modal)
+        myDialog.setContentView(R.layout.new_beer_modal)
         myDialog.show()
     }
 
