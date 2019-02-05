@@ -9,7 +9,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:hint="Marca" android:layout_marginTop="16dp"
+            android:hint="@string/brand" android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp" android:id="@+id/textInputLayout">
@@ -24,7 +24,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:hint="Valor"
+            android:hint="@string/value"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp" android:id="@+id/textInputLayout2"
@@ -41,7 +41,7 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:hint="Tamanho"
+            android:hint="@string/size"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp" app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp" android:id="@+id/textInputLayout3"
@@ -54,16 +54,40 @@
         />
     </android.support.design.widget.TextInputLayout>
 
-
     <android.support.design.button.MaterialButton
-            android:id="@+id/next_button"
+            android:id="@+id/add_button"
+            app:backgroundTint="@color/colorPositive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:text="Adicionar" android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/add" android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             android:layout_marginEnd="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:visibility="visible"/>
+
+    <android.support.design.button.MaterialButton
+            android:id="@+id/delete_button"
+            app:backgroundTint="@color/colorNegative"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:text="@string/delete" android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginStart="16dp" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/save_button" android:layout_marginEnd="8dp"
+            android:visibility="invisible"/>
+
+    <android.support.design.button.MaterialButton
+            android:id="@+id/save_button"
+            app:backgroundTint="@color/colorPositive"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/save" android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="16dp"
+            app:layout_constraintStart_toEndOf="@+id/delete_button" android:layout_marginStart="8dp"
+            android:visibility="invisible"/>
 
 
 </android.support.constraint.ConstraintLayout>
