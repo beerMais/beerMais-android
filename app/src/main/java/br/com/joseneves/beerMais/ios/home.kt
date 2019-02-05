@@ -3,12 +3,10 @@ package br.com.joseneves.beerMais.ios
 import android.app.Dialog
 import android.graphics.Rect
 import android.os.Bundle
-import android.support.design.widget.BaseTransientBottomBar
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.ButtonBarLayout
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.Menu
@@ -32,11 +30,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
 
-//        fab.setOnClickListener { view ->
-//            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                .setAction("Action", null).show()
-//        }
-
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         )
@@ -59,17 +52,6 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         beerRecyclerView!!.addItemDecoration(RecyclerViewMargin())
         mAdapter = BeerAdapter(beers)
         beerRecyclerView!!.adapter = mAdapter
-
-        btn = findViewById<View>(R.id.open_modal) as Button
-        btn.setOnClickListener{
-           showModal()
-        }
-    }
-
-    fun showModal() {
-        myDialog = Dialog(this)
-        myDialog.setContentView(R.layout.custom_modal)
-        myDialog.show()
     }
 
     override fun onBackPressed() {
@@ -87,11 +69,11 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         when (item.itemId) {
-            R.id.action_settings -> return true
+            R.id.action_settings -> {
+                this.showModal()
+                return true
+            }
             else -> return super.onOptionsItemSelected(item)
         }
     }
@@ -109,6 +91,12 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    private fun showModal() {
+        myDialog = Dialog(this)
+        myDialog.setContentView(R.layout.custom_modal)
+        myDialog.show()
     }
 
     inner class RecyclerViewMargin: RecyclerView.ItemDecoration() {
