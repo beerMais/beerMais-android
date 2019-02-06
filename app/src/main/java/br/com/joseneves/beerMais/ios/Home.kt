@@ -1,6 +1,5 @@
 package br.com.joseneves.beerMais.ios
 
-import android.app.Dialog
 import android.graphics.Rect
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -12,15 +11,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 
 class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    internal lateinit var btn: Button
-    internal lateinit var myDialog: Dialog
-
     private var beerRecyclerView: RecyclerView? = null
     private var mAdapter: RecyclerView.Adapter<*>? = null
     private var beers: ArrayList<Beer> = ArrayList()
@@ -71,7 +65,7 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_settings -> {
-                this.showModal()
+                this.createBeer()
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -93,10 +87,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         return true
     }
 
-    private fun showModal() {
-        myDialog = Dialog(this)
-        myDialog.setContentView(R.layout.new_beer_modal)
-        myDialog.show()
+    private fun createBeer() {
+        NewBeer().show(supportFragmentManager,"new_beer_modal")
     }
 
     inner class RecyclerViewMargin: RecyclerView.ItemDecoration() {
