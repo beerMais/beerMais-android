@@ -11,13 +11,17 @@ import android.support.v7.widget.RecyclerView
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.arch.lifecycle.Observer
+import br.com.joseneves.beerMais.ios.Database.DAO.BeerDAO
+import br.com.joseneves.beerMais.ios.Database.Database
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 
 class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
     private var beerRecyclerView: RecyclerView? = null
     private var mAdapter: RecyclerView.Adapter<*>? = null
-    private var beers: ArrayList<Beer> = ArrayList()
+
+    private lateinit var beerDAO: BeerDAO
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,20 +36,19 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        for (i in 0..4) {
-            val beer = Beer()
-            beer.id = i
-            beer.amount = i
-            beer.brand = "Brand $i"
-            beer.amount = i
+        val database = Database.instance(this)
+        beerDAO = database.beerDAO()
+        val productsLiveData = beerDAO.all()
+        productsLiveData.observe(this, Observer { beers ->
+            beers?.let {
+                mAdapter = BeerAdapter(beers)
+                beerRecyclerView!!.adapter = mAdapter
+            }
+        })
 
-            beers.add(beer)
-        }
         beerRecyclerView = findViewById(R.id.beer_recyclerView)
         beerRecyclerView!!.layoutManager = GridLayoutManager(this, 2)
         beerRecyclerView!!.addItemDecoration(RecyclerViewMargin())
-        mAdapter = BeerAdapter(beers)
-        beerRecyclerView!!.adapter = mAdapter
     }
 
     override fun onBackPressed() {

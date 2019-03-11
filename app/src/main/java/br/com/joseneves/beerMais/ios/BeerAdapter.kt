@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import java.util.ArrayList
+import br.com.joseneves.beerMais.ios.Model.Beer
 
-class BeerAdapter(private val mDataList: ArrayList<Beer>) : RecyclerView.Adapter<BeerAdapter.MyViewHolder>() {
+class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<BeerAdapter.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_beer, parent, false)
