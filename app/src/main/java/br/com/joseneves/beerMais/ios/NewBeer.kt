@@ -20,6 +20,7 @@ class NewBeer: DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         newBeerDialog = Dialog(this.context!!)
         newBeerDialog.setContentView(R.layout.new_beer_modal)
+        newBeerDialog.window.setBackgroundDrawableResource(android.R.color.transparent)
 
         val database = Database.instance(this.context!!)
         beerDAO = database.beerDAO()
@@ -40,7 +41,7 @@ class NewBeer: DialogFragment() {
         return Beer(amount = amount, brand = brand, type = 1, value = value)
     }
 
-    inner class SaveBeer : AsyncTask<Void, Void, Void>() {
+    inner class SaveBeer: AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.add(createBeer())
             return null
