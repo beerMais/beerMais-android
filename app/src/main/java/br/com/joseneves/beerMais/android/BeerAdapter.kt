@@ -1,11 +1,11 @@
-package br.com.joseneves.beerMais.ios
+package br.com.joseneves.beerMais.android
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import br.com.joseneves.beerMais.ios.Model.Beer
+import br.com.joseneves.beerMais.android.Model.Beer
 
 class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<BeerAdapter.MyViewHolder>() {
 

@@ -1,6 +1,6 @@
-package br.com.joseneves.beerMais.ios.Database.DAO
+package br.com.joseneves.beerMais.android.Database.DAO
 
-import br.com.joseneves.beerMais.ios.Model.Beer
+import br.com.joseneves.beerMais.android.Model.Beer
 import android.arch.lifecycle.LiveData
 import android.arch.persistence.room.Dao
 import android.arch.persistence.room.Insert

@@ -1,4 +1,4 @@
-package br.com.joseneves.beerMais.ios
+package br.com.joseneves.beerMais.android
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -12,8 +12,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.arch.lifecycle.Observer
-import br.com.joseneves.beerMais.ios.Database.DAO.BeerDAO
-import br.com.joseneves.beerMais.ios.Database.Database
+import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
+import br.com.joseneves.beerMais.android.Database.Database
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 

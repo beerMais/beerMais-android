@@ -1,7 +1,7 @@
-package br.com.joseneves.beerMais.ios.Database
+package br.com.joseneves.beerMais.android.Database
 
-import br.com.joseneves.beerMais.ios.Database.DAO.BeerDAO
-import br.com.joseneves.beerMais.ios.Model.Beer
+import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
+import br.com.joseneves.beerMais.android.Model.Beer
 import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase

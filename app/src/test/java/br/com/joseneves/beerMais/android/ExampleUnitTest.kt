@@ -1,4 +1,4 @@
-package br.com.joseneves.beerMais.ios
+package br.com.joseneves.beerMais.android
 
 import org.junit.Test
 

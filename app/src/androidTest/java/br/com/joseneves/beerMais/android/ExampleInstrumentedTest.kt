@@ -1,4 +1,4 @@
-package br.com.joseneves.beerMais.ios
+package br.com.joseneves.beerMais.android
 
 import android.support.test.InstrumentationRegistry
 import android.support.test.runner.AndroidJUnit4
@@ -19,6 +19,6 @@ class ExampleInstrumentedTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getTargetContext()
-        assertEquals("br.com.joseneves.beerMais.ios", appContext.packageName)
+        assertEquals("br.com.joseneves.beerMais.android", appContext.packageName)
     }
 }

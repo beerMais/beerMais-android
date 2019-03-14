@@ -1,4 +1,4 @@
-package br.com.joseneves.beerMais.ios
+package br.com.joseneves.beerMais.android
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle

@@ -1,12 +1,12 @@
-package br.com.joseneves.beerMais.ios
+package br.com.joseneves.beerMais.android
 
 import android.app.Dialog
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
-import br.com.joseneves.beerMais.ios.Database.DAO.BeerDAO
-import br.com.joseneves.beerMais.ios.Database.Database
-import br.com.joseneves.beerMais.ios.Model.Beer
+import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
+import br.com.joseneves.beerMais.android.Database.Database
+import br.com.joseneves.beerMais.android.Model.Beer
 import kotlinx.android.synthetic.main.new_beer_modal.*
 
 class NewBeer: DialogFragment() {
