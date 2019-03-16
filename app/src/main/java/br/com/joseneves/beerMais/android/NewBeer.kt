@@ -12,6 +12,7 @@ import kotlinx.android.synthetic.main.new_beer_modal.*
 class NewBeer: DialogFragment() {
     private lateinit var newBeerDialog: Dialog
     private lateinit var beerDAO: BeerDAO
+    private lateinit var beer: Beer
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,24 +27,70 @@ class NewBeer: DialogFragment() {
         beerDAO = database.beerDAO()
 
         newBeerDialog.add_button.setOnClickListener {
-            SaveBeer().execute()
-            dismiss()
+            val beer = createBeer()
+            if(beer != null) {
+                this.beer = beer
+                SaveBeer().execute()
+                dismiss()
+            }
         }
 
         return newBeerDialog
     }
 
-    private fun createBeer(): Beer {
+    private fun createBeer(): Beer? {
         val brand = newBeerDialog.textInputLayoutBrand.editText?.text.toString()
-        val value = newBeerDialog.textInputValue.editText?.text.toString().toFloat()
-        val amount = newBeerDialog.textInputAmount.editText?.text.toString().toInt()
 
-        return Beer(amount = amount, brand = brand, type = 1, value = value)
+        val valueString = newBeerDialog.textInputValue.editText?.text.toString()
+        var value = 0.0f
+        if (valueString.isNotEmpty()) {
+            value = valueString.toFloat()
+        }
+
+        val amountString = newBeerDialog.textInputAmount.editText?.text.toString()
+        var amount = 0
+        if(amountString.isNotEmpty()) {
+            amount = amountString.toInt()
+        }
+
+        var beer: Beer? = null
+        if(isValidBeer(brand, value, amount)) {
+            beer = Beer(amount = amount, brand = brand, type = 1, value = value)
+        }
+
+        return beer
+    }
+
+    private fun isValidBeer(brand: String, value: Float, amount: Int): Boolean {
+        val isNotValidBrand = brand.isEmpty()
+        val isNotValidValue = value < 0.01f
+        val isNotValidAmount = amount < 1
+
+        if(isNotValidBrand) {
+            newBeerDialog.textInputLayoutBrand.error = getString(R.string.brandError)
+        } else {
+            newBeerDialog.textInputLayoutBrand.error = null
+        }
+
+        if(isNotValidValue) {
+            newBeerDialog.textInputValue.error = getString(R.string.valueError)
+        } else {
+            newBeerDialog.textInputValue.error = null
+        }
+
+        if(isNotValidAmount) {
+            newBeerDialog.textInputAmount.error = getString(R.string.amountError)
+        } else {
+            newBeerDialog.textInputAmount.error = null
+        }
+
+        return !isNotValidBrand && !isNotValidValue && !isNotValidAmount
     }
 
     inner class SaveBeer: AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg p0: Void?): Void? {
-            beerDAO.add(createBeer())
+            beerDAO.add(beer)
+
             return null
         }
     }

@@ -13,4 +13,7 @@
     <string name="brand">Marca</string>
     <string name="value">Valor</string>
     <string name="size">Tamanho</string>
+    <string name="brandError">Digite uma Marca</string>
+    <string name="valueError">Digite um Valor</string>
+    <string name="amountError">Digite um Tamanho</string>
 </resources>

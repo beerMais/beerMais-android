@@ -3,7 +3,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="300dp"
-        android:layout_height="285dp"
+        android:layout_height="305dp"
         app:cardCornerRadius="10dp">
 
     <LinearLayout
@@ -14,6 +14,7 @@
 
         <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:errorEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/brand"
@@ -28,11 +29,12 @@
 
         <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:errorEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/value"
                 android:id="@+id/textInputValue"
-                android:layout_marginTop="12dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp">
+                android:layout_marginTop="2dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp">
 
             <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
@@ -42,11 +44,12 @@
 
         <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                app:errorEnabled="true"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/size"
                 android:id="@+id/textInputAmount"
-                android:layout_marginTop="12dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp">
+                android:layout_marginTop="2dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp">
 
             <android.support.design.widget.TextInputEditText
                     android:layout_width="match_parent"
@@ -58,7 +61,7 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:visibility="visible"
-                android:layout_height="wrap_content" android:gravity="center" android:layout_marginTop="10dp">
+                android:layout_height="wrap_content" android:gravity="center">
 
             <android.support.design.button.MaterialButton
                     android:id="@+id/add_button"
