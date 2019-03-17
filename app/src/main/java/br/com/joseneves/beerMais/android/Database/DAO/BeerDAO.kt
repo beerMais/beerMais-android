@@ -8,7 +8,7 @@ import android.arch.persistence.room.Query
 
 @Dao
 interface BeerDAO {
-    @Query("SELECT * FROM beer ORDER BY id DESC")
+    @Query("SELECT * FROM beer ORDER BY (value/amount) ASC")
     fun all(): LiveData<List<Beer>>
 
     @Insert
