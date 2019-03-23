@@ -1,4 +1,4 @@
-package br.com.joseneves.beerMais.android
+package br.com.joseneves.beerMais.android.Home
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -12,21 +12,29 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.arch.lifecycle.Observer
+import br.com.joseneves.beerMais.android.BeerAdapter
 import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
+import br.com.joseneves.beerMais.android.Model.Beer
+import br.com.joseneves.beerMais.android.NewBeer
+import br.com.joseneves.beerMais.android.R
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
+import kotlinx.android.synthetic.main.content_home.*
 
-class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, HomeContract.View {
     private var beerRecyclerView: RecyclerView? = null
     private var mAdapter: RecyclerView.Adapter<*>? = null
 
     private lateinit var beerDAO: BeerDAO
+    private lateinit var presenter: HomeContract.Presenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
+
+        setPresenter(HomePresenter(this))
 
         val toggle = ActionBarDrawerToggle(
             this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
@@ -41,6 +49,8 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
         val productsLiveData = beerDAO.all()
         productsLiveData.observe(this, Observer { beers ->
             beers?.let {
+                presenter.calcRank(beers)
+
                 mAdapter = BeerAdapter(beers)
                 beerRecyclerView!!.adapter = mAdapter
             }
@@ -88,6 +98,33 @@ class Home : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListene
 
         drawer_layout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun setRank(beer: Beer, economy: String) {
+        textViewBrand.text = beer.brand
+        textViewValue.text = "R$ " + beer.value.toString()
+
+        var amountText = beer.amount.toString() + " ml"
+
+        if (beer.amount >= 1000) {
+            amountText = "1 L"
+
+            if (beer.amount >= 1010) {
+                amountText = String.format("%.2f", (beer.amount.toFloat()/1000)).replace(".",",") + " L"
+            }
+        }
+
+        textViewAmount.text = amountText
+        textViewEconomy.text = economy
+    }
+
+    override fun onDestroy() {
+        presenter.onDestroy()
+        super.onDestroy()
+    }
+
+    override fun setPresenter(presenter: HomeContract.Presenter) {
+        this.presenter = presenter
     }
 
     private fun createBeer() {
