@@ -91,9 +91,6 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
             R.id.nav_about -> {
                 // Handle the camera action
             }
-            R.id.nav_help -> {
-
-            }
         }
 
         drawer_layout.closeDrawer(GravityCompat.START)
