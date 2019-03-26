@@ -8,6 +8,7 @@ import android.widget.TextView
 import br.com.joseneves.beerMais.android.Model.Beer
 
 class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<BeerAdapter.MyViewHolder>() {
+    lateinit var mClickListener: ClickListener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.row_beer, parent, false)
@@ -26,6 +27,10 @@ class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<Beer
         return mDataList.size
     }
 
+    fun setOnItemClickListener(aClickListener: ClickListener) {
+        mClickListener = aClickListener
+    }
+
     private fun getAmountLabel(amount: Int): String {
         var amountLabel = "ml"
 
@@ -35,7 +40,11 @@ class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<Beer
         return amountLabel
     }
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    interface ClickListener {
+        fun onClick(pos: Int, aView: View)
+    }
+
+    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
         internal var amount_textView: TextView
         internal var brand_textView: TextView
         internal var value_textView: TextView
@@ -44,6 +53,13 @@ class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<Beer
             amount_textView = itemView.findViewById<View>(R.id.amount_textView) as TextView
             brand_textView = itemView.findViewById<View>(R.id.brand_textView) as TextView
             value_textView = itemView.findViewById<View>(R.id.value_textView) as TextView
+
+            itemView.setOnClickListener(this)
+
+        }
+
+        override fun onClick(v: View) {
+            mClickListener.onClick(adapterPosition, v)
         }
     }
 }

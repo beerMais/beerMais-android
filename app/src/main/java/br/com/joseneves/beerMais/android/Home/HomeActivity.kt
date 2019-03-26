@@ -24,7 +24,7 @@ import kotlinx.android.synthetic.main.content_home.*
 
 class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, HomeContract.View {
     private var beerRecyclerView: RecyclerView? = null
-    private var mAdapter: RecyclerView.Adapter<*>? = null
+    private var mAdapter: BeerAdapter? = null
 
     private lateinit var beerDAO: BeerDAO
     private lateinit var presenter: HomeContract.Presenter
@@ -53,6 +53,14 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
                 mAdapter = BeerAdapter(beers)
                 beerRecyclerView!!.adapter = mAdapter
+
+                mAdapter?.setOnItemClickListener(object : BeerAdapter.ClickListener {
+                    override fun onClick(pos: Int, aView: View) {
+                        val newBeer = NewBeer()
+                        newBeer.setBeer(beers[pos])
+                        newBeer.show(supportFragmentManager,"new_beer_modal")
+                    }
+                })
             }
         })
 

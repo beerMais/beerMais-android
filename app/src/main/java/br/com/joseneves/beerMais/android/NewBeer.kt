@@ -23,6 +23,8 @@ class NewBeer: DialogFragment() {
         newBeerDialog.setContentView(R.layout.new_beer_modal)
         newBeerDialog.window.setBackgroundDrawableResource(android.R.color.transparent)
 
+        populateBeer()
+
         val database = Database.instance(this.context!!)
         beerDAO = database.beerDAO()
 
@@ -36,6 +38,10 @@ class NewBeer: DialogFragment() {
         }
 
         return newBeerDialog
+    }
+
+    fun setBeer(beer: Beer) {
+        this.beer = beer
     }
 
     private fun createBeer(): Beer? {
@@ -87,7 +93,17 @@ class NewBeer: DialogFragment() {
         return !isNotValidBrand && !isNotValidValue && !isNotValidAmount
     }
 
-    inner class SaveBeer: AsyncTask<Void, Void, Void>() {
+    private fun populateBeer() {
+        if (!::beer.isInitialized) {
+            return
+        }
+
+        newBeerDialog.textInputLayoutBrand.editText?.setText(beer.brand)
+        newBeerDialog.textInputAmount.editText?.setText(beer.amount.toString())
+        newBeerDialog.textInputValue.editText?.setText(beer.value.toString())
+    }
+
+    inner class SaveBeer(): AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.add(beer)
 
