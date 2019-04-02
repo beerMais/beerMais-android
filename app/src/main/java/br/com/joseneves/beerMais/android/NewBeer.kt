@@ -30,10 +30,24 @@ class NewBeer: DialogFragment() {
         beerDAO = database.beerDAO()
 
         newBeerDialog.add_button.setOnClickListener {
-            val beer = createBeer()
+            val beer = getBeer(null)
             if(beer != null) {
                 this.beer = beer
                 SaveBeer().execute()
+                dismiss()
+            }
+        }
+
+        newBeerDialog.delete_button.setOnClickListener {
+            DeleteBeer().execute()
+            dismiss()
+        }
+
+        newBeerDialog.save_button.setOnClickListener {
+            val beer = getBeer(this.beer)
+            if(beer != null) {
+                this.beer = beer
+                UpdateBeer().execute()
                 dismiss()
             }
         }
@@ -45,7 +59,7 @@ class NewBeer: DialogFragment() {
         this.beer = beer
     }
 
-    private fun createBeer(): Beer? {
+    private fun getBeer(beer: Beer?): Beer? {
         val brand = newBeerDialog.textInputLayoutBrand.editText?.text.toString()
 
         val valueString = newBeerDialog.textInputValue.editText?.text.toString()
@@ -60,12 +74,20 @@ class NewBeer: DialogFragment() {
             amount = amountString.toInt()
         }
 
-        var beer: Beer? = null
         if(isValidBeer(brand, value, amount)) {
-            beer = Beer(amount = amount, brand = brand, type = 1, value = value)
+            if (beer ==  null) {
+                return Beer(amount = amount, brand = brand, type = 1, value = value)
+            } else {
+                beer.amount = amount
+                beer.brand = brand
+                beer.type = 1
+                beer.value = value
+
+                return beer
+            }
         }
 
-        return beer
+        return null
     }
 
     private fun isValidBeer(brand: String, value: Float, amount: Int): Boolean {
@@ -110,6 +132,22 @@ class NewBeer: DialogFragment() {
     inner class SaveBeer(): AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.add(beer)
+
+            return null
+        }
+    }
+
+    inner class DeleteBeer(): AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg p0: Void?): Void? {
+            beerDAO.delete(beer)
+
+            return null
+        }
+    }
+
+    inner class UpdateBeer(): AsyncTask<Void, Void, Void>() {
+        override fun doInBackground(vararg p0: Void?): Void? {
+            beerDAO.update(beer)
 
             return null
         }

@@ -2,9 +2,7 @@ package br.com.joseneves.beerMais.android.Database.DAO
 
 import br.com.joseneves.beerMais.android.Model.Beer
 import android.arch.lifecycle.LiveData
-import android.arch.persistence.room.Dao
-import android.arch.persistence.room.Insert
-import android.arch.persistence.room.Query
+import android.arch.persistence.room.*
 
 @Dao
 interface BeerDAO {
@@ -13,4 +11,10 @@ interface BeerDAO {
 
     @Insert
     fun add(vararg product: Beer)
+
+    @Delete
+    fun delete(beer: Beer)
+
+    @Update
+    fun update(beer: Beer)
 }
