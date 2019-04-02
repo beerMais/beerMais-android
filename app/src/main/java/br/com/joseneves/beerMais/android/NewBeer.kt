@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
+import android.view.View
 import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
 import br.com.joseneves.beerMais.android.Model.Beer
@@ -101,6 +102,9 @@ class NewBeer: DialogFragment() {
         newBeerDialog.textInputLayoutBrand.editText?.setText(beer.brand)
         newBeerDialog.textInputAmount.editText?.setText(beer.amount.toString())
         newBeerDialog.textInputValue.editText?.setText(beer.value.toString())
+
+        newBeerDialog.add_linearLayout.visibility = View.GONE
+        newBeerDialog.edit_linearLayout.visibility = View.VISIBLE
     }
 
     inner class SaveBeer(): AsyncTask<Void, Void, Void>() {
