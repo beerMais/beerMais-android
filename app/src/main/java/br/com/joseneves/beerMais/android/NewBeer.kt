@@ -20,11 +20,11 @@ class NewBeer: DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         newBeerDialog = Dialog(this.context!!)
         newBeerDialog.setContentView(R.layout.new_beer_modal)
-        newBeerDialog.window.setBackgroundDrawableResource(android.R.color.transparent)
+        newBeerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         val width = ViewGroup.LayoutParams.MATCH_PARENT
         val height = ViewGroup.LayoutParams.MATCH_PARENT
-        newBeerDialog.window.setLayout(width, height)
+        newBeerDialog.window?.setLayout(width, height)
 
         val adRequest = AdRequest.Builder().build()
 
