@@ -62,6 +62,10 @@ class NewBeer: DialogFragment() {
             dismiss()
         }
 
+        newBeerDialog.scrollContainerConstraintLayout.setOnClickListener {
+            dismiss()
+        }
+
         newBeerDialog.close_button.setOnClickListener {
             dismiss()
         }

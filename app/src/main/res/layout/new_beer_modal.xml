@@ -4,145 +4,168 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/containerConstraintLayout" android:elevation="0dp">
+        android:id="@+id/containerConstraintLayout">
 
-    <android.support.design.widget.FloatingActionButton
-            android:id="@+id/close_button"
-            style="@style/Widget.MaterialComponents.FloatingActionButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/cancel_icon"
-            app:fabCustomSize="30dp"
-            app:backgroundTint="#FFFFFF"
-            app:maxImageSize="24dp"
-            android:translationX="21dp"
-            android:translationY="-15dp"
-            app:layout_constraintTop_toTopOf="@+id/materialCardView"
-            android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="@+id/materialCardView" app:borderWidth="2dp"
-            android:backgroundTint="@color/colorNegative"/>
+    <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:isScrollContainer="true" app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/scrollView" android:elevation="1dp"
+            android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent">
 
-    <android.support.design.card.MaterialCardView
-            android:clickable="true"
-            android:focusable="true" android:layout_width="320dp"
-            android:layout_height="290dp"
-            android:layout_marginTop="30dp" android:paddingTop="60dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
-            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent" android:id="@+id/materialCardView"
-            app:cardElevation="0dp">
-
-
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_gravity="bottom"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:background="@drawable/border_modal">
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:id="@+id/scrollContainerConstraintLayout">
 
-            <android.support.design.widget.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:errorEnabled="true"
-                    android:layout_width="match_parent"
+            <android.support.design.widget.FloatingActionButton
+                    android:id="@+id/close_button"
+                    style="@style/Widget.MaterialComponents.FloatingActionButton"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:hint="@string/brand"
-                    android:id="@+id/textInputLayoutBrand"
-                    android:layout_marginTop="14dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp">
+                    app:srcCompat="@drawable/cancel_icon"
+                    app:fabCustomSize="30dp"
+                    app:backgroundTint="#FFFFFF"
+                    app:maxImageSize="24dp"
+                    android:translationX="21dp"
+                    android:translationY="-15dp"
+                    app:layout_constraintTop_toTopOf="@+id/materialCardView"
+                    android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="@+id/materialCardView" app:borderWidth="2dp"
+                    android:backgroundTint="@color/colorNegative"/>
 
-                <android.support.design.widget.TextInputEditText
-                        android:id="@+id/textInputBrand"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" android:textSize="14sp"/>
-            </android.support.design.widget.TextInputLayout>
+            <android.support.design.card.MaterialCardView
+                    android:clickable="true"
+                    android:focusable="true" android:layout_width="320dp"
+                    android:layout_height="290dp"
+                    android:layout_marginTop="30dp" android:paddingTop="60dp"
+                    app:cardBackgroundColor="@android:color/transparent"
+                    app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
+                    app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+                    app:layout_constraintStart_toStartOf="parent" android:id="@+id/materialCardView"
+                    app:cardElevation="0dp">
 
-            <android.support.design.widget.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:errorEnabled="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/value"
-                    android:id="@+id/textInputValue"
-                    android:layout_marginTop="2dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp">
-
-                <android.support.design.widget.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:inputType="numberDecimal" android:textSize="14sp"/>
-            </android.support.design.widget.TextInputLayout>
-
-            <android.support.design.widget.TextInputLayout
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    app:errorEnabled="true"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/size"
-                    android:id="@+id/textInputAmount"
-                    android:layout_marginTop="2dp" android:layout_marginStart="16dp" android:layout_marginEnd="16dp">
-
-                <android.support.design.widget.TextInputEditText
+                <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:inputType="number" android:textSize="14sp"/>
-            </android.support.design.widget.TextInputLayout>
+                        android:layout_gravity="bottom"
+                        android:orientation="vertical"
+                        android:background="@drawable/border_modal">
 
-            <LinearLayout
-                    android:id="@+id/add_linearLayout"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:visibility="visible"
-                    android:layout_height="wrap_content" android:gravity="center">
+                    <android.support.design.widget.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:errorEnabled="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/brand"
+                            android:id="@+id/textInputLayoutBrand"
+                            android:layout_marginTop="14dp" android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp">
 
-                <android.support.design.button.MaterialButton
-                        android:id="@+id/add_button"
-                        app:backgroundTint="@color/colorPositive"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/add"
-                        android:textSize="14sp"/>
-            </LinearLayout>
+                        <android.support.design.widget.TextInputEditText
+                                android:id="@+id/textInputBrand"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" android:textSize="14sp"/>
+                    </android.support.design.widget.TextInputLayout>
 
-            <LinearLayout
-                    android:id="@+id/edit_linearLayout"
-                    android:orientation="horizontal"
-                    android:layout_width="match_parent"
-                    android:visibility="gone"
-                    android:layout_height="wrap_content"
-                    android:weightSum="2">
+                    <android.support.design.widget.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:errorEnabled="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/value"
+                            android:id="@+id/textInputValue"
+                            android:layout_marginTop="2dp" android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp">
 
-                <android.support.design.button.MaterialButton
-                        android:id="@+id/delete_button"
-                        app:backgroundTint="@color/colorNegative"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/delete"
-                        android:textSize="14sp"
-                        android:layout_weight="1" android:layout_marginStart="16dp" android:layout_marginEnd="8dp"/>
+                        <android.support.design.widget.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="numberDecimal" android:textSize="14sp"/>
+                    </android.support.design.widget.TextInputLayout>
 
-                <android.support.design.button.MaterialButton
-                        android:id="@+id/save_button"
-                        app:backgroundTint="@color/colorPositive"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/save"
-                        android:textSize="14sp"
-                        android:layout_weight="1" android:layout_marginEnd="16dp" android:layout_marginStart="8dp"/>
-            </LinearLayout>
-        </LinearLayout>
-    </android.support.design.card.MaterialCardView>
+                    <android.support.design.widget.TextInputLayout
+                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                            app:errorEnabled="true"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/size"
+                            android:id="@+id/textInputAmount"
+                            android:layout_marginTop="2dp" android:layout_marginStart="16dp"
+                            android:layout_marginEnd="16dp">
+
+                        <android.support.design.widget.TextInputEditText
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:inputType="number" android:textSize="14sp"/>
+                    </android.support.design.widget.TextInputLayout>
+
+                    <LinearLayout
+                            android:id="@+id/add_linearLayout"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:visibility="visible"
+                            android:layout_height="wrap_content" android:gravity="center">
+
+                        <android.support.design.button.MaterialButton
+                                android:id="@+id/add_button"
+                                app:backgroundTint="@color/colorPositive"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/add"
+                                android:textSize="14sp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:id="@+id/edit_linearLayout"
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:visibility="gone"
+                            android:layout_height="wrap_content"
+                            android:weightSum="2">
+
+                        <android.support.design.button.MaterialButton
+                                android:id="@+id/delete_button"
+                                app:backgroundTint="@color/colorNegative"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/delete"
+                                android:textSize="14sp"
+                                android:layout_weight="1" android:layout_marginStart="16dp"
+                                android:layout_marginEnd="8dp"/>
+
+                        <android.support.design.button.MaterialButton
+                                android:id="@+id/save_button"
+                                app:backgroundTint="@color/colorPositive"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/save"
+                                android:textSize="14sp"
+                                android:layout_weight="1" android:layout_marginEnd="16dp"
+                                android:layout_marginStart="8dp"/>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.design.card.MaterialCardView>
+
+        </android.support.constraint.ConstraintLayout>
+
+    </ScrollView>
 
     <com.google.android.gms.ads.AdView
-            xmlns:ads="http://schemas.android.com/apk/res-auto"
             android:id="@+id/adView"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ads:adSize="LARGE_BANNER"
-            ads:adUnitId="ca-app-pub-3940256099942544/6300978111"
-            android:layout_marginBottom="8dp" ads:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginEnd="8dp" ads:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            ads:layout_constraintStart_toStartOf="parent">
+            android:layout_height="100dp"
+            app:adSize="LARGE_BANNER"
+            app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="@+id/containerConstraintLayout" android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintStart_toStartOf="parent">
     </com.google.android.gms.ads.AdView>
 
 </android.support.constraint.ConstraintLayout>
