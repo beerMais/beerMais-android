@@ -1,6 +1,5 @@
 package br.com.joseneves.beerMais.android.Home
 
-import android.graphics.Rect
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
@@ -66,7 +65,6 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
         beerRecyclerView = findViewById(R.id.beer_recyclerView)
         beerRecyclerView!!.layoutManager = GridLayoutManager(this, 2)
-        beerRecyclerView!!.addItemDecoration(RecyclerViewMargin())
     }
 
     override fun onBackPressed() {
@@ -136,17 +134,4 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         NewBeer().show(supportFragmentManager,"new_beer_modal")
     }
 
-    inner class RecyclerViewMargin: RecyclerView.ItemDecoration() {
-        override fun getItemOffsets(
-            outRect: Rect, view: View,
-            parent: RecyclerView, state: RecyclerView.State
-        ) {
-            val totalWidth = parent.width
-            val cardWidth = 150
-
-            var sidePadding = (totalWidth - cardWidth) / 14
-            sidePadding = Math.max(0, sidePadding)
-            outRect.set(sidePadding, 0, 0, 0)
-        }
-    }
 }
