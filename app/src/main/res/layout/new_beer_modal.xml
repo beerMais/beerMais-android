@@ -2,15 +2,28 @@
 <android.support.design.card.MaterialCardView
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="300dp"
-        android:layout_height="305dp"
-        app:cardCornerRadius="10dp">
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="320dp"
+        android:layout_height="325dp" android:layout_marginTop="30dp" android:paddingTop="60dp"
+        app:cardBackgroundColor="@android:color/transparent" >
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/floating_action_button"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|right"
+            app:srcCompat="@drawable/ic_action_cancel"
+            app:fabSize="mini"
+            app:backgroundTint="@color/colorNegative"/>
+
 
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:background="@drawable/border_modal">
 
         <android.support.design.widget.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -98,4 +111,6 @@
                     android:layout_weight="1" android:layout_marginEnd="16dp" android:layout_marginStart="8dp"/>
         </LinearLayout>
     </LinearLayout>
+
+
 </android.support.design.card.MaterialCardView>

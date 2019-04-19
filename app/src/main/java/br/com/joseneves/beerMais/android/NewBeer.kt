@@ -19,6 +19,7 @@ class NewBeer: DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+
         newBeerDialog = Dialog(this.context!!)
         newBeerDialog.setContentView(R.layout.new_beer_modal)
         newBeerDialog.window.setBackgroundDrawableResource(android.R.color.transparent)
