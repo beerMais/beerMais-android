@@ -8,21 +8,27 @@ import android.view.View
 import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
 import br.com.joseneves.beerMais.android.Model.Beer
+import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.new_beer_modal.*
+import android.view.ViewGroup
 
 class NewBeer: DialogFragment() {
     private lateinit var newBeerDialog: Dialog
     private lateinit var beerDAO: BeerDAO
     private lateinit var beer: Beer
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         newBeerDialog = Dialog(this.context!!)
         newBeerDialog.setContentView(R.layout.new_beer_modal)
         newBeerDialog.window.setBackgroundDrawableResource(android.R.color.transparent)
+
+        val width = ViewGroup.LayoutParams.MATCH_PARENT
+        val height = ViewGroup.LayoutParams.MATCH_PARENT
+        newBeerDialog.window.setLayout(width, height)
+
+        val adRequest = AdRequest.Builder().build()
+
+        newBeerDialog.adView.loadAd(adRequest)
 
         populateBeer()
 
