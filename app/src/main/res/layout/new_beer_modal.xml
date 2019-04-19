@@ -25,7 +25,6 @@
     <android.support.design.card.MaterialCardView
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            xmlns:tools="http://schemas.android.com/tools"
             android:clickable="true"
             android:focusable="true" android:layout_width="320dp"
             android:layout_height="325dp"
