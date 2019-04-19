@@ -62,6 +62,10 @@ class NewBeer: DialogFragment() {
             dismiss()
         }
 
+        newBeerDialog.close_button.setOnClickListener {
+            dismiss()
+        }
+
         return newBeerDialog
     }
 

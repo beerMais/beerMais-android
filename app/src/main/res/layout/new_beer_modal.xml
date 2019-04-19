@@ -2,28 +2,48 @@
 <android.support.constraint.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="match_parent"
+        xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/containerConstraintLayout">
+        android:id="@+id/containerConstraintLayout" android:elevation="0dp">
+
+    <android.support.design.widget.FloatingActionButton
+            android:id="@+id/close_button"
+            style="@style/Widget.MaterialComponents.FloatingActionButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/cancel_icon"
+            app:fabCustomSize="30dp"
+            app:backgroundTint="#FFFFFF"
+            app:maxImageSize="24dp"
+            android:translationX="21dp"
+            android:translationY="-15dp"
+            app:layout_constraintTop_toTopOf="@+id/materialCardView"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/materialCardView" app:borderWidth="2dp"
+            android:backgroundTint="@color/colorNegative"/>
 
     <android.support.design.card.MaterialCardView
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"
-            android:layout_width="300dp"
-            android:layout_height="295dp"
+            xmlns:tools="http://schemas.android.com/tools"
             android:clickable="true"
-            android:focusable="true"
-            app:cardCornerRadius="10dp" android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+            android:focusable="true" android:layout_width="320dp"
+            android:layout_height="325dp"
+            android:layout_marginTop="30dp" android:paddingTop="60dp"
+            app:cardBackgroundColor="@android:color/transparent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="8dp"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent" android:id="@+id/materialCardView">
+
 
         <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="bottom"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:background="@drawable/border_modal">>
 
             <android.support.design.widget.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
