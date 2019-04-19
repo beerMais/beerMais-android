@@ -58,6 +58,10 @@ class NewBeer: DialogFragment() {
             }
         }
 
+        newBeerDialog.containerConstraintLayout.setOnClickListener {
+            dismiss()
+        }
+
         return newBeerDialog
     }
 
