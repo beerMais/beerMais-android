@@ -16,4 +16,7 @@
     <string name="brandError">Digite uma Marca</string>
     <string name="valueError">Digite um Valor</string>
     <string name="amountError">Digite um Tamanho</string>
+    <string name="aboutApp">A ideia desse app nasceu quando 3 amigos estavam fazendo as contas para decidir qual cerveja compesaria comprar para um churrasco. \n\nNão tendo o foco apenas em cerveja, o Beer Mais pode ser usado para calcular o melhor custo-beneficio entre quaisquer bebidas. \n\nA área em verde destaca a bebida de maior custo-beneficio e ordena a lista utilizando do mesmo critério. \n\nÍcones:</string>
+    <string name="links">\nhttps://icons8.com\nhttps://www.flaticons.com"</string>
+    <string name="version">Versão 1.0.0</string>
 </resources>

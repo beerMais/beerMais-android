@@ -8,10 +8,8 @@ import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.view.Menu
-import android.view.MenuItem
-import android.view.View
 import android.arch.lifecycle.Observer
+import android.view.*
 import br.com.joseneves.beerMais.android.BeerAdapter
 import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
@@ -21,6 +19,7 @@ import br.com.joseneves.beerMais.android.R
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 import kotlinx.android.synthetic.main.content_home.*
+import android.widget.LinearLayout
 
 class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, HomeContract.View {
     private var beerRecyclerView: RecyclerView? = null
@@ -28,11 +27,18 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
 
     private lateinit var beerDAO: BeerDAO
     private lateinit var presenter: HomeContract.Presenter
+    private lateinit var stub: ViewStub
+    private lateinit var linearLayout: LinearLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
         setSupportActionBar(toolbar)
+
+        stub = findViewById(R.id.layout_stub)
+        linearLayout = findViewById(R.id.linear_layout)
+        stub.layoutResource = R.layout.content_home
+        stub.inflate()
 
         setPresenter(HomePresenter(this))
 
@@ -89,10 +95,12 @@ class HomeActivity: AppCompatActivity(), NavigationView.OnNavigationItemSelected
         // Handle navigation view item clicks here.
         when (item.itemId) {
             R.id.nav_about -> {
-                // Handle the camera action
+                linearLayout.removeAllViews()
+                linearLayout.addView(LayoutInflater.from(this.baseContext).inflate(R.layout.about_fragment, linearLayout, false))
             }
-            R.id.nav_help -> {
-
+            R.id.nav_cal -> {
+                linearLayout.removeAllViews()
+                linearLayout.addView(LayoutInflater.from(this.baseContext).inflate(R.layout.content_home, linearLayout, false))
             }
         }
 
