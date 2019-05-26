@@ -7,26 +7,41 @@
                                     android:layout_gravity="center_horizontal"
                                     android:animateLayoutChanges="true"
                                     app:cardCornerRadius="8dp"
-                                    app:cardUseCompatPadding="true">
-    <TextView
-            android:text="Brand"
+                                    app:cardUseCompatPadding="true" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+
+    <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="21dp" android:id="@+id/brand_textView" android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp" android:layout_marginTop="4dp" android:textAlignment="center"
-            android:textColor="@android:color/black"/>
-    <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp" app:srcCompat="@drawable/can_icon" android:id="@+id/beer_imageView"
-            android:layout_marginLeft="8dp" android:layout_marginTop="33dp"/>
-    <TextView
-            android:text="350ml"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content" android:id="@+id/amount_textView" android:layout_marginTop="83dp"
-            android:layout_marginLeft="8dp" android:textAlignment="center"/>
-    <TextView
-            android:text="R$ 00,00"
-            android:layout_width="match_parent"
-            android:layout_height="25dp" android:id="@+id/value_textView"
-            android:layout_marginLeft="66dp" android:layout_marginRight="8dp" android:layout_marginTop="61dp"
-            android:textAlignment="center" android:textSize="18sp" android:textColor="@android:color/black"/>
+            android:background="@drawable/beer_card"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:text="Brand"
+                android:layout_width="match_parent"
+                android:layout_height="21dp" android:id="@+id/brand_textView"
+                android:layout_marginTop="8dp" android:textAlignment="center"
+                android:textColor="@android:color/black" app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent"/>
+        <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp" app:srcCompat="@drawable/can_icon" android:id="@+id/beer_imageView"
+                app:layout_constraintBottom_toTopOf="@+id/amount_textView"
+                app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"/>
+        <TextView
+                android:text="350ml"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" android:id="@+id/amount_textView"
+                android:textAlignment="center" android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="8dp" android:textColor="@color/colorTextMedium"/>
+        <TextView
+                android:text="R$ 00,00"
+                android:layout_width="0dp"
+                android:layout_height="25dp" android:id="@+id/value_textView"
+                android:textAlignment="center" android:textSize="18sp" android:textColor="@android:color/black"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@+id/beer_imageView"
+                android:layout_marginStart="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/amount_textView"/>
+
+    </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

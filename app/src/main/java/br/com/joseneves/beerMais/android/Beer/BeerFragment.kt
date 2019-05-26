@@ -9,7 +9,6 @@ import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
-import br.com.joseneves.beerMais.android.BeerAdapter
 import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
 import br.com.joseneves.beerMais.android.Model.Beer

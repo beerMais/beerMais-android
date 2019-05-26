@@ -1,4 +1,4 @@
-package br.com.joseneves.beerMais.android
+package br.com.joseneves.beerMais.android.Beer
 
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import br.com.joseneves.beerMais.android.Model.Beer
+import br.com.joseneves.beerMais.android.R
 
 class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<BeerAdapter.MyViewHolder>() {
     lateinit var mClickListener: ClickListener
