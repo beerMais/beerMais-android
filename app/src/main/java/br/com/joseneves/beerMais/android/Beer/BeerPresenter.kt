@@ -1,9 +1,9 @@
-package br.com.joseneves.beerMais.android.Home
+package br.com.joseneves.beerMais.android.Beer
 
 import br.com.joseneves.beerMais.android.Model.Beer
 
-class HomePresenter(view: HomeContract.View): HomeContract.Presenter {
-    private var view: HomeContract.View? = view
+class BeerPresenter(view: BeerContract.View) : BeerContract.Presenter {
+    private var view: BeerContract.View? = view
 
     override fun onDestroy() {
         this.view = null
