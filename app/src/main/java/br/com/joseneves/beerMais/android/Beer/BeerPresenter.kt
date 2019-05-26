@@ -40,6 +40,10 @@ class BeerPresenter(view: BeerContract.View?) : BeerContract.Presenter {
         return amountText
     }
 
+    override fun getValueText(value: Float): String {
+        return "R$ " + String.format("%.2f", value).replace(".", ",")
+    }
+
     private fun getEconomy(beer1: Beer, beer2: Beer): Float {
         val value1 = getValuePerML(beer1.value, beer1.amount)
         val value2 = getValuePerML(beer2.value, beer2.amount)

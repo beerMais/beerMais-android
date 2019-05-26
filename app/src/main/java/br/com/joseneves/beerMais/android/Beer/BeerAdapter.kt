@@ -18,10 +18,11 @@ class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<Beer
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val amount = mDataList[position].amount
+        val beerPresenter = BeerPresenter(null)
 
-        holder.amount_textView.text = BeerPresenter(null).getAmountText(amount)
+        holder.amount_textView.text = beerPresenter.getAmountText(amount)
         holder.brand_textView.text = mDataList[position].brand
-        holder.value_textView.text = "R$ " + mDataList[position].value.toString().replace('.', ',')
+        holder.value_textView.text = beerPresenter.getValueText(mDataList[position].value)
     }
 
     override fun getItemCount(): Int {

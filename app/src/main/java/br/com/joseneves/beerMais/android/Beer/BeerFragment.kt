@@ -80,7 +80,7 @@ class BeerFragment : Fragment(), BeerContract.View {
 
     override fun setRank(beer: Beer, economy: String) {
         textViewBrand.text = beer.brand
-        textViewValue.text = "R$ " + beer.value.toString()
+        textViewValue.text = presenter.getValueText(beer.value)
         textViewAmount.text = presenter.getAmountText(beer.amount)
         textViewEconomy.text = economy
     }
