@@ -83,6 +83,7 @@ class BeerFragment : Fragment(), BeerContract.View {
         textViewValue.text = presenter.getValueText(beer.value)
         textViewAmount.text = presenter.getAmountText(beer.amount)
         textViewEconomy.text = economy
+        imageViewBeer.setImageResource(presenter.getBeerImage(beer.amount))
     }
 
 

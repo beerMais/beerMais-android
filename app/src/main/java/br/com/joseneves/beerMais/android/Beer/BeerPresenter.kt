@@ -1,6 +1,7 @@
 package br.com.joseneves.beerMais.android.Beer
 
 import br.com.joseneves.beerMais.android.Model.Beer
+import br.com.joseneves.beerMais.android.R
 
 class BeerPresenter(view: BeerContract.View?) : BeerContract.Presenter {
     private var view: BeerContract.View? = view
@@ -42,6 +43,10 @@ class BeerPresenter(view: BeerContract.View?) : BeerContract.Presenter {
 
     override fun getValueText(value: Float): String {
         return "R$ " + String.format("%.2f", value).replace(".", ",")
+    }
+
+    override fun getBeerImage(amount: Int): Int {
+        return if (amount < 1000) R.drawable.can_icon else R.drawable.bottle_icon
     }
 
     private fun getEconomy(beer1: Beer, beer2: Beer): Float {

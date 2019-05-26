@@ -18,7 +18,7 @@
           app:borderWidth="2dp" android:id="@+id/rank"/>
     <ImageView
             android:layout_height="50dp" app:srcCompat="@drawable/can_icon"
-            android:id="@+id/imageView2"
+            android:id="@+id/imageViewBeer"
             app:layout_constraintTop_toBottomOf="@+id/textViewBrand" android:layout_marginTop="16dp"
             android:layout_width="50dp" app:layout_constraintStart_toStartOf="@+id/rank"
             android:layout_marginLeft="8dp"/>
@@ -36,7 +36,7 @@
             android:layout_width="50dp"
             android:layout_height="21dp"
             android:id="@+id/textViewAmount"
-            app:layout_constraintTop_toBottomOf="@+id/imageView2" app:layout_constraintStart_toStartOf="@+id/rank"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewBeer" app:layout_constraintStart_toStartOf="@+id/rank"
             android:layout_marginStart="8dp" android:textAlignment="center"
             android:textColor="@color/colorTextMedium"/>
     <TextView
@@ -44,7 +44,7 @@
             android:layout_width="100dp"
             android:layout_height="25dp"
             android:id="@+id/textViewValue" android:layout_marginBottom="29dp"
-            app:layout_constraintBottom_toBottomOf="@+id/rank" app:layout_constraintStart_toEndOf="@+id/imageView2"
+            app:layout_constraintBottom_toBottomOf="@+id/rank" app:layout_constraintStart_toEndOf="@+id/imageViewBeer"
             android:layout_marginStart="16dp" android:textAlignment="center"
             android:textColor="@color/colorTextDark"
             android:textSize="18sp"/>

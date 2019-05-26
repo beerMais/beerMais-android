@@ -10,6 +10,7 @@ interface BeerContract {
         fun calcRank(beers: List<Beer>)
         fun getAmountText(amount: Int): String
         fun getValueText(value: Float): String
+        fun getBeerImage(amount: Int): Int
     }
 
     interface View : BaseView<Presenter> {
