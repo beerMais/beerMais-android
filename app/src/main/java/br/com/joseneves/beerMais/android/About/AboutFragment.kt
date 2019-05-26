@@ -28,6 +28,8 @@ class AboutFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        activity?.title = "Sobre"
+
         val desc = view.findViewById<WebView>(R.id.desc_webView)
         var text: String
         text = "<html><body><p align=\"justify\">"

@@ -41,6 +41,9 @@ class BeerFragment : Fragment(), BeerContract.View {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        activity?.title = "Beer Mais"
+
         beerRecyclerView = view.findViewById(R.id.beer_recyclerView)
         setPresenter(BeerPresenter(this))
 
