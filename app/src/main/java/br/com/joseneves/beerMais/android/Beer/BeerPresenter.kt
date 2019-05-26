@@ -2,7 +2,7 @@ package br.com.joseneves.beerMais.android.Beer
 
 import br.com.joseneves.beerMais.android.Model.Beer
 
-class BeerPresenter(view: BeerContract.View) : BeerContract.Presenter {
+class BeerPresenter(view: BeerContract.View?) : BeerContract.Presenter {
     private var view: BeerContract.View? = view
 
     override fun onDestroy() {
@@ -25,6 +25,19 @@ class BeerPresenter(view: BeerContract.View) : BeerContract.Presenter {
             economy = "R$ $economyString /L"
         }
         view?.setRank(beer, economy)
+    }
+
+    override fun getAmountText(amount: Int): String {
+        var amountText = amount.toString() + "ml"
+
+        if (amount >= 1000) {
+            amountText = "1 L"
+
+            if (amount >= 1010) {
+                amountText = String.format("%.2f", (amount.toFloat() / 1000)).replace(".", ",") + " L"
+            }
+        }
+        return amountText
     }
 
     private fun getEconomy(beer1: Beer, beer2: Beer): Float {

@@ -81,18 +81,7 @@ class BeerFragment : Fragment(), BeerContract.View {
     override fun setRank(beer: Beer, economy: String) {
         textViewBrand.text = beer.brand
         textViewValue.text = "R$ " + beer.value.toString()
-
-        var amountText = beer.amount.toString() + " ml"
-
-        if (beer.amount >= 1000) {
-            amountText = "1 L"
-
-            if (beer.amount >= 1010) {
-                amountText = String.format("%.2f", (beer.amount.toFloat() / 1000)).replace(".", ",") + " L"
-            }
-        }
-
-        textViewAmount.text = amountText
+        textViewAmount.text = presenter.getAmountText(beer.amount)
         textViewEconomy.text = economy
     }
 

@@ -8,6 +8,7 @@ interface BeerContract {
     interface Presenter : BasePresenter {
         fun onViewCreated()
         fun calcRank(beers: List<Beer>)
+        fun getAmountText(amount: Int): String
     }
 
     interface View : BaseView<Presenter> {

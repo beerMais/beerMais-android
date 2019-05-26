@@ -19,7 +19,7 @@ class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<Beer
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val amount = mDataList[position].amount
 
-        holder.amount_textView.text = amount.toString() + getAmountLabel(amount)
+        holder.amount_textView.text = BeerPresenter(null).getAmountText(amount)
         holder.brand_textView.text = mDataList[position].brand
         holder.value_textView.text = "R$ " + mDataList[position].value.toString().replace('.', ',')
     }
@@ -30,15 +30,6 @@ class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<Beer
 
     fun setOnItemClickListener(aClickListener: ClickListener) {
         mClickListener = aClickListener
-    }
-
-    private fun getAmountLabel(amount: Int): String {
-        var amountLabel = "ml"
-
-        if (amount >= 1000) {
-            amountLabel = "L"
-        }
-        return amountLabel
     }
 
     interface ClickListener {
