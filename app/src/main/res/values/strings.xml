@@ -12,4 +12,6 @@
     <string name="amountError">Digite um Tamanho</string>
     <string name="amountHelp">Em ml</string>
     <string name="empty">Em ml</string>
+    <string name="calculator">Calculadora</string>
+    <string name="about">Sobre</string>
 </resources>
