@@ -26,13 +26,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         this.changeFragment(BeerFragment())
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
+            this, drawer_layout, toolbar, R.string.empty, R.string.empty
         )
         drawer_layout.addDrawerListener(toggle)
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-        FirebaseAnalytics.getInstance(this.baseContext).setCurrentScreen(this, javaClass.simpleName, javaClass.simpleName)
+        FirebaseAnalytics.getInstance(this.baseContext)
+            .setCurrentScreen(this, javaClass.simpleName, javaClass.simpleName)
     }
 
     override fun onBackPressed() {
@@ -79,7 +80,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         supportFragmentManager.executePendingTransactions()
 
-        newBeer.dialog.setOnDismissListener{
+        newBeer.dialog.setOnDismissListener {
             getVisibleFragment().let {
                 val fragmentName = it!!.javaClass.simpleName
                 FirebaseAnalytics.getInstance(this.baseContext).setCurrentScreen(this, fragmentName, fragmentName)

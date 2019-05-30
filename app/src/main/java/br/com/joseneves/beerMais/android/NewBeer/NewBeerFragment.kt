@@ -15,17 +15,20 @@ import android.view.ViewGroup
 import br.com.joseneves.beerMais.android.R
 import com.google.firebase.analytics.FirebaseAnalytics
 
-class NewBeerFragment: DialogFragment() {
+
+class NewBeerFragment : DialogFragment() {
     private lateinit var newBeerDialog: Dialog
     private lateinit var beerDAO: BeerDAO
     private lateinit var beer: Beer
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        FirebaseAnalytics.getInstance(context!!).setCurrentScreen(activity!!, javaClass.simpleName, javaClass.simpleName)
+        FirebaseAnalytics.getInstance(context!!)
+            .setCurrentScreen(activity!!, javaClass.simpleName, javaClass.simpleName)
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
+        beerDAO = Database.instance(this.context!!).beerDAO()
         newBeerDialog = Dialog(this.context!!)
         newBeerDialog.setContentView(R.layout.new_beer_modal)
         newBeerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
@@ -34,49 +37,13 @@ class NewBeerFragment: DialogFragment() {
         val height = ViewGroup.LayoutParams.MATCH_PARENT
         newBeerDialog.window?.setLayout(width, height)
 
-        val adRequest = AdRequest.Builder().build()
+        newBeerDialog.adView.loadAd(AdRequest.Builder().build())
 
-        newBeerDialog.adView.loadAd(adRequest)
+        newBeerDialog.textInputAmount.helperText = getString(R.string.amountHelp)
 
         populateBeer()
-
-        val database = Database.instance(this.context!!)
-        beerDAO = database.beerDAO()
-
-        newBeerDialog.add_button.setOnClickListener {
-            val beer = getBeer(null)
-            if(beer != null) {
-                this.beer = beer
-                SaveBeer().execute()
-                dismiss()
-            }
-        }
-
-        newBeerDialog.delete_button.setOnClickListener {
-            DeleteBeer().execute()
-            dismiss()
-        }
-
-        newBeerDialog.save_button.setOnClickListener {
-            val beer = getBeer(this.beer)
-            if(beer != null) {
-                this.beer = beer
-                UpdateBeer().execute()
-                dismiss()
-            }
-        }
-
-        newBeerDialog.containerConstraintLayout.setOnClickListener {
-            dismiss()
-        }
-
-        newBeerDialog.scrollContainerConstraintLayout.setOnClickListener {
-            dismiss()
-        }
-
-        newBeerDialog.close_button.setOnClickListener {
-            dismiss()
-        }
+        setButtonsListeners()
+        setDialogListeners()
 
         return newBeerDialog
     }
@@ -96,12 +63,12 @@ class NewBeerFragment: DialogFragment() {
 
         val amountString = newBeerDialog.textInputAmount.editText?.text.toString()
         var amount = 0
-        if(amountString.isNotEmpty()) {
+        if (amountString.isNotEmpty()) {
             amount = amountString.toInt()
         }
 
-        if(isValidBeer(brand, value, amount)) {
-            if (beer ==  null) {
+        if (isValidBeer(brand, value, amount)) {
+            if (beer == null) {
                 return Beer(amount = amount, brand = brand, type = 1, value = value)
             } else {
                 beer.amount = amount
@@ -121,19 +88,19 @@ class NewBeerFragment: DialogFragment() {
         val isNotValidValue = value < 0.01f
         val isNotValidAmount = amount < 1
 
-        if(isNotValidBrand) {
+        if (isNotValidBrand) {
             newBeerDialog.textInputLayoutBrand.error = getString(R.string.brandError)
         } else {
             newBeerDialog.textInputLayoutBrand.error = null
         }
 
-        if(isNotValidValue) {
+        if (isNotValidValue) {
             newBeerDialog.textInputValue.error = getString(R.string.valueError)
         } else {
             newBeerDialog.textInputValue.error = null
         }
 
-        if(isNotValidAmount) {
+        if (isNotValidAmount) {
             newBeerDialog.textInputAmount.error = getString(R.string.amountError)
         } else {
             newBeerDialog.textInputAmount.error = null
@@ -155,7 +122,40 @@ class NewBeerFragment: DialogFragment() {
         newBeerDialog.edit_linearLayout.visibility = View.VISIBLE
     }
 
-    inner class SaveBeer(): AsyncTask<Void, Void, Void>() {
+    private fun setButtonsListeners() {
+        newBeerDialog.add_button.setOnClickListener {
+            val beer = getBeer(null)
+            if (beer != null) {
+                this.beer = beer
+                SaveBeer().execute()
+                dismiss()
+            }
+        }
+
+        newBeerDialog.delete_button.setOnClickListener {
+            DeleteBeer().execute()
+            dismiss()
+        }
+
+        newBeerDialog.save_button.setOnClickListener {
+            val beer = getBeer(this.beer)
+            if (beer != null) {
+                this.beer = beer
+                UpdateBeer().execute()
+                dismiss()
+            }
+        }
+    }
+
+    private fun setDialogListeners() {
+        val listener = { _: View -> dismiss() }
+
+//        newBeerDialog.containerConstraintLayout.setOnClickListener(listener)
+        newBeerDialog.contentContainer.setOnClickListener(listener)
+        newBeerDialog.close_button.setOnClickListener(listener)
+    }
+
+    inner class SaveBeer() : AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.add(beer)
 
@@ -163,7 +163,7 @@ class NewBeerFragment: DialogFragment() {
         }
     }
 
-    inner class DeleteBeer(): AsyncTask<Void, Void, Void>() {
+    inner class DeleteBeer() : AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.delete(beer)
 
@@ -171,7 +171,7 @@ class NewBeerFragment: DialogFragment() {
         }
     }
 
-    inner class UpdateBeer(): AsyncTask<Void, Void, Void>() {
+    inner class UpdateBeer() : AsyncTask<Void, Void, Void>() {
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.update(beer)
 
