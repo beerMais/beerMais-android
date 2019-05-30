@@ -1,4 +1,4 @@
-package br.com.joseneves.beerMais.android.Home
+package br.com.joseneves.beerMais.android.Main
 
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -10,12 +10,14 @@ import android.view.MenuItem
 import android.support.v4.app.Fragment
 import br.com.joseneves.beerMais.android.About.AboutFragment
 import br.com.joseneves.beerMais.android.Beer.BeerFragment
-import br.com.joseneves.beerMais.android.NewBeer
+import br.com.joseneves.beerMais.android.NewBeer.NewBeerFragment
 import br.com.joseneves.beerMais.android.R
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.app_bar_home.*
 
-class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,7 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
+        FirebaseAnalytics.getInstance(this.baseContext).setCurrentScreen(this, javaClass.simpleName, javaClass.simpleName)
     }
 
     override fun onBackPressed() {
@@ -71,7 +74,26 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun createBeer() {
-        NewBeer().show(supportFragmentManager, "new_beer_modal")
+        val newBeer = NewBeerFragment()
+        newBeer.show(supportFragmentManager, "new_beer_modal")
+
+        supportFragmentManager.executePendingTransactions()
+
+        newBeer.dialog.setOnDismissListener{
+            getVisibleFragment().let {
+                val fragmentName = it!!.javaClass.simpleName
+                FirebaseAnalytics.getInstance(this.baseContext).setCurrentScreen(this, fragmentName, fragmentName)
+            }
+        }
+    }
+
+    private fun getVisibleFragment(): Fragment? {
+        supportFragmentManager.fragments.forEach {
+            if (it != null && it.isVisible) {
+                return it
+            }
+        }
+        return null
     }
 
     private fun changeFragment(fragment: Fragment) {

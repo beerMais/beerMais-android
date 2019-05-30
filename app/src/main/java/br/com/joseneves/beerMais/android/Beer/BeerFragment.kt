@@ -1,6 +1,7 @@
 package br.com.joseneves.beerMais.android.Beer
 
 import android.arch.lifecycle.Observer
+import android.content.Context
 import android.support.v4.app.Fragment
 import br.com.joseneves.beerMais.android.R
 import android.os.Bundle
@@ -12,7 +13,8 @@ import android.view.View
 import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
 import br.com.joseneves.beerMais.android.Model.Beer
-import br.com.joseneves.beerMais.android.NewBeer
+import br.com.joseneves.beerMais.android.NewBeer.NewBeerFragment
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.android.synthetic.main.fragment_beer.*
 
 
@@ -28,6 +30,11 @@ class BeerFragment : Fragment(), BeerContract.View {
         fun newInstance(): BeerFragment {
             return BeerFragment()
         }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        FirebaseAnalytics.getInstance(context!!).setCurrentScreen(this.activity!!, javaClass.simpleName, javaClass.simpleName)
     }
 
     override fun onCreateView(
@@ -58,7 +65,7 @@ class BeerFragment : Fragment(), BeerContract.View {
 
                 mAdapter?.setOnItemClickListener(object : BeerAdapter.ClickListener {
                     override fun onClick(pos: Int, aView: View) {
-                        val newBeer = NewBeer()
+                        val newBeer = NewBeerFragment()
                         newBeer.setBeer(beers[pos])
                         newBeer.show(activity?.supportFragmentManager, "new_beer_modal")
                     }

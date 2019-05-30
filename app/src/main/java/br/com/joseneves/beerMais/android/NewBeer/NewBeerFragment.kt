@@ -1,6 +1,7 @@
-package br.com.joseneves.beerMais.android
+package br.com.joseneves.beerMais.android.NewBeer
 
 import android.app.Dialog
+import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
@@ -11,11 +12,18 @@ import br.com.joseneves.beerMais.android.Model.Beer
 import com.google.android.gms.ads.AdRequest
 import kotlinx.android.synthetic.main.new_beer_modal.*
 import android.view.ViewGroup
+import br.com.joseneves.beerMais.android.R
+import com.google.firebase.analytics.FirebaseAnalytics
 
-class NewBeer: DialogFragment() {
+class NewBeerFragment: DialogFragment() {
     private lateinit var newBeerDialog: Dialog
     private lateinit var beerDAO: BeerDAO
     private lateinit var beer: Beer
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        FirebaseAnalytics.getInstance(context!!).setCurrentScreen(activity!!, javaClass.simpleName, javaClass.simpleName)
+    }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         newBeerDialog = Dialog(this.context!!)

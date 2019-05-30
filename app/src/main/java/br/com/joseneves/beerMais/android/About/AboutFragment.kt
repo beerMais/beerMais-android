@@ -1,5 +1,6 @@
 package br.com.joseneves.beerMais.android.About
 
+import android.content.Context
 import android.support.v4.app.Fragment
 import br.com.joseneves.beerMais.android.R
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebView
+import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class AboutFragment : Fragment() {
@@ -15,6 +17,11 @@ class AboutFragment : Fragment() {
         fun newInstance(): AboutFragment {
             return AboutFragment()
         }
+    }
+
+    override fun onAttach(context: Context?) {
+        super.onAttach(context)
+        FirebaseAnalytics.getInstance(context!!).setCurrentScreen(activity!!, javaClass.simpleName, javaClass.simpleName)
     }
 
     override fun onCreateView(
