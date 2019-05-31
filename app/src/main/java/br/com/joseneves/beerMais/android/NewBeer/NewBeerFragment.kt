@@ -150,7 +150,6 @@ class NewBeerFragment : DialogFragment() {
     private fun setDialogListeners() {
         val listener = { _: View -> dismiss() }
 
-//        newBeerDialog.containerConstraintLayout.setOnClickListener(listener)
         newBeerDialog.contentContainer.setOnClickListener(listener)
         newBeerDialog.close_button.setOnClickListener(listener)
     }
