@@ -34,7 +34,8 @@ class BeerFragment : Fragment(), BeerContract.View {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
-        FirebaseAnalytics.getInstance(context!!).setCurrentScreen(this.activity!!, javaClass.simpleName, javaClass.simpleName)
+        FirebaseAnalytics.getInstance(context!!)
+            .setCurrentScreen(this.activity!!, javaClass.simpleName, javaClass.simpleName)
     }
 
     override fun onCreateView(
@@ -58,6 +59,7 @@ class BeerFragment : Fragment(), BeerContract.View {
 
         beerDAO.all().observe(this, Observer { beers ->
             beers?.let {
+                controlHelpMessage(beers.count())
                 presenter.calcRank(beers)
 
                 mAdapter = BeerAdapter(beers)
@@ -93,6 +95,13 @@ class BeerFragment : Fragment(), BeerContract.View {
         imageViewBeer.setImageResource(presenter.getBeerImage(beer.amount))
     }
 
+    private fun controlHelpMessage(beersCount: Int) {
+        val beersVisibility = if (beersCount == 0)  View.GONE else View.VISIBLE
+        val helperVisibility = if (beersCount == 0)  View.VISIBLE else View.GONE
+
+        beer_recyclerView.visibility = beersVisibility
+        helperText.visibility = helperVisibility
+    }
 
 }
 
