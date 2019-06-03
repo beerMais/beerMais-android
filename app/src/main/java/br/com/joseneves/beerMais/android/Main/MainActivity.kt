@@ -101,7 +101,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val transaction = supportFragmentManager.beginTransaction()
 
         transaction.replace(R.id.fragment, fragment)
-        transaction.addToBackStack(null)
+        transaction.disallowAddToBackStack()
 
         transaction.commit()
     }
