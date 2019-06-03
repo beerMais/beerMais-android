@@ -1,8 +1,10 @@
 package br.com.joseneves.beerMais.android
 
 import android.app.Application
+import android.util.Log
 import com.google.android.gms.ads.MobileAds
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.iid.FirebaseInstanceId
 
 
 class App: Application() {
