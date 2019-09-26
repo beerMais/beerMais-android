@@ -1,7 +1,7 @@
 package br.com.joseneves.beerMais.android.About
 
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import br.com.joseneves.beerMais.android.R
 import android.os.Bundle
 import android.view.ViewGroup
@@ -19,9 +19,9 @@ class AboutFragment : Fragment() {
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        FirebaseAnalytics.getInstance(context!!).setCurrentScreen(activity!!, javaClass.simpleName, javaClass.simpleName)
+        FirebaseAnalytics.getInstance(context).setCurrentScreen(activity!!, javaClass.simpleName, javaClass.simpleName)
     }
 
     override fun onCreateView(

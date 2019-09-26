@@ -1,12 +1,12 @@
 package br.com.joseneves.beerMais.android.Beer
 
-import android.arch.lifecycle.Observer
+import androidx.lifecycle.Observer
 import android.content.Context
-import android.support.v4.app.Fragment
+import androidx.fragment.app.Fragment
 import br.com.joseneves.beerMais.android.R
 import android.os.Bundle
-import android.support.v7.widget.GridLayoutManager
-import android.support.v7.widget.RecyclerView
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
@@ -32,9 +32,9 @@ class BeerFragment : Fragment(), BeerContract.View {
         }
     }
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        FirebaseAnalytics.getInstance(context!!)
+        FirebaseAnalytics.getInstance(context)
             .setCurrentScreen(this.activity!!, javaClass.simpleName, javaClass.simpleName)
     }
 
@@ -69,13 +69,14 @@ class BeerFragment : Fragment(), BeerContract.View {
                     override fun onClick(pos: Int, aView: View) {
                         val newBeer = NewBeerFragment()
                         newBeer.setBeer(beers[pos])
-                        newBeer.show(activity?.supportFragmentManager, "new_beer_modal")
+                        newBeer.show(activity?.supportFragmentManager!!, "new_beer_modal")
                     }
                 })
             }
         })
 
-        beerRecyclerView?.layoutManager = GridLayoutManager(this.context, 2)
+        beerRecyclerView?.layoutManager =
+            GridLayoutManager(this.context, 2)
     }
 
     override fun onDestroy() {

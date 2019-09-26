@@ -4,7 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
+import androidx.fragment.app.DialogFragment
 import android.view.View
 import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
@@ -21,9 +21,9 @@ class NewBeerFragment : DialogFragment() {
     private lateinit var beerDAO: BeerDAO
     private lateinit var beer: Beer
 
-    override fun onAttach(context: Context?) {
+    override fun onAttach(context: Context) {
         super.onAttach(context)
-        FirebaseAnalytics.getInstance(context!!)
+        FirebaseAnalytics.getInstance(context)
             .setCurrentScreen(activity!!, javaClass.simpleName, javaClass.simpleName)
     }
 

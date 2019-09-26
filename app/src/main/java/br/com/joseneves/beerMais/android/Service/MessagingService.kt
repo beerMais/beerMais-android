@@ -8,7 +8,7 @@ import br.com.joseneves.beerMais.android.R
 import br.com.joseneves.beerMais.android.Main.MainActivity
 import android.content.Context
 import android.content.Intent
-import android.support.v4.app.NotificationCompat
+import androidx.core.app.NotificationCompat
 import com.google.firebase.messaging.RemoteMessage
 import android.graphics.BitmapFactory
 import kotlin.random.Random
@@ -16,18 +16,18 @@ import kotlin.random.Random
 
 class MessagingService : FirebaseMessagingService() {
 
-    override fun onMessageReceived(remoteMessage: RemoteMessage?) {
-        var title = remoteMessage?.notification?.title
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+        var title = remoteMessage.notification?.title
         if (title.isNullOrEmpty()) {
             title = applicationContext.getString(R.string.app_name)
         }
 
-        var message = remoteMessage?.notification?.body
+        var message = remoteMessage.notification?.body
         if (message.isNullOrEmpty()) {
             message = applicationContext.getString(R.string.defaultNotification)
         }
 
-        showNotification(title!!, message!!)
+        showNotification(title, message)
     }
 
     private fun showNotification(title: String, message: String) {
