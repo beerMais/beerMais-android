@@ -1,8 +1,6 @@
 package br.com.joseneves.beerMais.android.NewBeer
 
 import android.app.Dialog
-import android.content.Context
-import android.os.AsyncTask
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
@@ -14,7 +12,10 @@ import com.google.android.gms.ads.AdRequest
 import android.view.ViewGroup
 import br.com.joseneves.beerMais.android.R
 import br.com.joseneves.beerMais.android.databinding.NewBeerModalBinding
-import com.google.firebase.analytics.FirebaseAnalytics
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class NewBeerFragment : DialogFragment() {
@@ -29,6 +30,14 @@ class NewBeerFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return binding.root
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
@@ -133,22 +142,25 @@ class NewBeerFragment : DialogFragment() {
             val beer = getBeer(null)
             if (beer != null) {
                 this.beer = beer
-                SaveBeer().execute()
-                dismiss()
+                SaveBeer().execute() {
+                    dismiss()
+                }
             }
         }
 
         binding.deleteButton.setOnClickListener {
-            DeleteBeer().execute()
-            dismiss()
+            DeleteBeer().execute() {
+                dismiss()
+            }
         }
 
         binding.saveButton.setOnClickListener {
             val beer = getBeer(this.beer)
             if (beer != null) {
                 this.beer = beer
-                UpdateBeer().execute()
-                dismiss()
+                UpdateBeer().execute() {
+                    dismiss()
+                }
             }
         }
     }
@@ -160,30 +172,36 @@ class NewBeerFragment : DialogFragment() {
         binding.closeButton.setOnClickListener(listener)
     }
 
-    inner class SaveBeer() : AsyncTask<Void, Void, Void>() {
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg p0: Void?): Void? {
-            beerDAO.add(beer)
-
-            return null
+    inner class SaveBeer() {
+        fun execute(completion: () -> Unit) {
+            CoroutineScope(Dispatchers.IO).launch {
+                beerDAO.add(beer)
+                withContext(Dispatchers.Main) {
+                    completion()
+                }
+            }
         }
     }
 
-    inner class DeleteBeer() : AsyncTask<Void, Void, Void>() {
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg p0: Void?): Void? {
-            beerDAO.delete(beer)
-
-            return null
+    inner class DeleteBeer() {
+        fun execute(completion: () -> Unit) {
+            CoroutineScope(Dispatchers.IO).launch {
+                beerDAO.delete(beer)
+                withContext(Dispatchers.Main) {
+                    completion()
+                }
+            }
         }
     }
 
-    inner class UpdateBeer() : AsyncTask<Void, Void, Void>() {
-        @Deprecated("Deprecated in Java")
-        override fun doInBackground(vararg p0: Void?): Void? {
-            beerDAO.update(beer)
-
-            return null
+    inner class UpdateBeer() {
+        fun execute(completion: () -> Unit) {
+            CoroutineScope(Dispatchers.IO).launch {
+                beerDAO.update(beer)
+                withContext(Dispatchers.Main) {
+                    completion()
+                }
+            }
         }
     }
 }
