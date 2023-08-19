@@ -14,11 +14,15 @@ import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
 import br.com.joseneves.beerMais.android.Model.Beer
 import br.com.joseneves.beerMais.android.NewBeer.NewBeerFragment
+import br.com.joseneves.beerMais.android.databinding.FragmentBeerBinding
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.fragment_beer.*
 
 
 class BeerFragment : Fragment(), BeerContract.View {
+
+    private var _binding: FragmentBeerBinding? = null
+    private val binding get() = _binding!!
+
     private var beerRecyclerView: RecyclerView? = null
     private var mAdapter: BeerAdapter? = null
 
@@ -37,13 +41,18 @@ class BeerFragment : Fragment(), BeerContract.View {
         FirebaseAnalytics.getInstance(context)
             .setCurrentScreen(this.activity!!, javaClass.simpleName, javaClass.simpleName)
     }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_beer, container, false)
+        _binding = FragmentBeerBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -89,19 +98,19 @@ class BeerFragment : Fragment(), BeerContract.View {
     }
 
     override fun setRank(beer: Beer, economy: String) {
-        textViewBrand.text = beer.brand
-        textViewValue.text = presenter.getValueText(beer.value)
-        textViewAmount.text = presenter.getAmountText(beer.amount)
-        textViewEconomy.text = economy
-        imageViewBeer.setImageResource(presenter.getBeerImage(beer.amount))
+        binding.textViewBrand.text = beer.brand
+        binding.textViewValue.text = presenter.getValueText(beer.value)
+        binding.textViewAmount.text = presenter.getAmountText(beer.amount)
+        binding.textViewEconomy.text = economy
+        binding.imageViewBeer.setImageResource(presenter.getBeerImage(beer.amount))
     }
 
     private fun controlHelpMessage(beersCount: Int) {
         val beersVisibility = if (beersCount == 0)  View.GONE else View.VISIBLE
         val helperVisibility = if (beersCount == 0)  View.VISIBLE else View.GONE
 
-        beer_recyclerView.visibility = beersVisibility
-        helperText.visibility = helperVisibility
+        binding.beerRecyclerView.visibility = beersVisibility
+        binding.helperText.visibility = helperVisibility
     }
 
 }

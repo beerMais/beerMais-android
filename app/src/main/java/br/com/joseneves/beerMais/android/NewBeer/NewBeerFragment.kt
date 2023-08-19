@@ -4,22 +4,41 @@ import android.app.Dialog
 import android.content.Context
 import android.os.AsyncTask
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
 import android.view.View
 import br.com.joseneves.beerMais.android.Database.DAO.BeerDAO
 import br.com.joseneves.beerMais.android.Database.Database
 import br.com.joseneves.beerMais.android.Model.Beer
 import com.google.android.gms.ads.AdRequest
-import kotlinx.android.synthetic.main.new_beer_modal.*
 import android.view.ViewGroup
 import br.com.joseneves.beerMais.android.R
+import br.com.joseneves.beerMais.android.databinding.NewBeerModalBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class NewBeerFragment : DialogFragment() {
+
+    private var _binding: NewBeerModalBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var newBeerDialog: Dialog
     private lateinit var beerDAO: BeerDAO
     private lateinit var beer: Beer
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        _binding = NewBeerModalBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -37,9 +56,9 @@ class NewBeerFragment : DialogFragment() {
         val height = ViewGroup.LayoutParams.MATCH_PARENT
         newBeerDialog.window?.setLayout(width, height)
 
-        newBeerDialog.adView.loadAd(AdRequest.Builder().build())
+        binding.adView.loadAd(AdRequest.Builder().build())
 
-        newBeerDialog.textInputAmount.helperText = getString(R.string.amountHelp)
+        binding.textInputAmount.helperText = getString(R.string.amountHelp)
 
         populateBeer()
         setButtonsListeners()
@@ -53,15 +72,15 @@ class NewBeerFragment : DialogFragment() {
     }
 
     private fun getBeer(beer: Beer?): Beer? {
-        val brand = newBeerDialog.textInputLayoutBrand.editText?.text.toString()
+        val brand = binding.textInputLayoutBrand.editText?.text.toString()
 
-        val valueString = newBeerDialog.textInputValue.editText?.text.toString()
+        val valueString = binding.textInputValue.editText?.text.toString()
         var value = 0.0f
         if (valueString.isNotEmpty()) {
             value = valueString.toFloat()
         }
 
-        val amountString = newBeerDialog.textInputAmount.editText?.text.toString()
+        val amountString = binding.textInputAmount.editText?.text.toString()
         var amount = 0
         if (amountString.isNotEmpty()) {
             amount = amountString.toInt()
@@ -89,21 +108,21 @@ class NewBeerFragment : DialogFragment() {
         val isNotValidAmount = amount < 1
 
         if (isNotValidBrand) {
-            newBeerDialog.textInputLayoutBrand.error = getString(R.string.brandError)
+            binding.textInputLayoutBrand.error = getString(R.string.brandError)
         } else {
-            newBeerDialog.textInputLayoutBrand.error = null
+            binding.textInputLayoutBrand.error = null
         }
 
         if (isNotValidValue) {
-            newBeerDialog.textInputValue.error = getString(R.string.valueError)
+            binding.textInputValue.error = getString(R.string.valueError)
         } else {
-            newBeerDialog.textInputValue.error = null
+            binding.textInputValue.error = null
         }
 
         if (isNotValidAmount) {
-            newBeerDialog.textInputAmount.error = getString(R.string.amountError)
+            binding.textInputAmount.error = getString(R.string.amountError)
         } else {
-            newBeerDialog.textInputAmount.error = null
+            binding.textInputAmount.error = null
         }
 
         return !isNotValidBrand && !isNotValidValue && !isNotValidAmount
@@ -114,16 +133,16 @@ class NewBeerFragment : DialogFragment() {
             return
         }
 
-        newBeerDialog.textInputLayoutBrand.editText?.setText(beer.brand)
-        newBeerDialog.textInputAmount.editText?.setText(beer.amount.toString())
-        newBeerDialog.textInputValue.editText?.setText(beer.value.toString())
+        binding.textInputLayoutBrand.editText?.setText(beer.brand)
+        binding.textInputAmount.editText?.setText(beer.amount.toString())
+        binding.textInputValue.editText?.setText(beer.value.toString())
 
-        newBeerDialog.add_linearLayout.visibility = View.GONE
-        newBeerDialog.edit_linearLayout.visibility = View.VISIBLE
+        binding.addLinearLayout.visibility = View.GONE
+        binding.editLinearLayout.visibility = View.VISIBLE
     }
 
     private fun setButtonsListeners() {
-        newBeerDialog.add_button.setOnClickListener {
+        binding.addButton.setOnClickListener {
             val beer = getBeer(null)
             if (beer != null) {
                 this.beer = beer
@@ -132,12 +151,12 @@ class NewBeerFragment : DialogFragment() {
             }
         }
 
-        newBeerDialog.delete_button.setOnClickListener {
+        binding.deleteButton.setOnClickListener {
             DeleteBeer().execute()
             dismiss()
         }
 
-        newBeerDialog.save_button.setOnClickListener {
+        binding.saveButton.setOnClickListener {
             val beer = getBeer(this.beer)
             if (beer != null) {
                 this.beer = beer
@@ -150,8 +169,8 @@ class NewBeerFragment : DialogFragment() {
     private fun setDialogListeners() {
         val listener = { _: View -> dismiss() }
 
-        newBeerDialog.contentContainer.setOnClickListener(listener)
-        newBeerDialog.close_button.setOnClickListener(listener)
+        binding.contentContainer.setOnClickListener(listener)
+        binding.closeButton.setOnClickListener(listener)
     }
 
     inner class SaveBeer() : AsyncTask<Void, Void, Void>() {

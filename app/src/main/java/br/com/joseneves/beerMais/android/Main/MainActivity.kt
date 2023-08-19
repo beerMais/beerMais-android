@@ -12,33 +12,42 @@ import br.com.joseneves.beerMais.android.About.AboutFragment
 import br.com.joseneves.beerMais.android.Beer.BeerFragment
 import br.com.joseneves.beerMais.android.NewBeer.NewBeerFragment
 import br.com.joseneves.beerMais.android.R
+import br.com.joseneves.beerMais.android.databinding.ActivityHomeBinding
+import br.com.joseneves.beerMais.android.databinding.AppBarHomeBinding
 import com.google.firebase.analytics.FirebaseAnalytics
-import kotlinx.android.synthetic.main.activity_home.*
-import kotlinx.android.synthetic.main.app_bar_home.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var binding: ActivityHomeBinding
+    private lateinit var bindingAppBar: AppBarHomeBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        setSupportActionBar(toolbar)
+
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        bindingAppBar = AppBarHomeBinding.inflate(layoutInflater)
+
+        setContentView(binding.root)
+        setSupportActionBar(bindingAppBar.toolbar)
+//        supportActionBar?.setDisplayShowTitleEnabled(false)
+
         this.changeFragment(BeerFragment())
 
         val toggle = ActionBarDrawerToggle(
-            this, drawer_layout, toolbar, R.string.empty, R.string.empty
+            this, binding.drawerLayout, bindingAppBar.toolbar, R.string.empty, R.string.empty
         )
-        drawer_layout.addDrawerListener(toggle)
+        binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        nav_view.setNavigationItemSelectedListener(this)
+        binding.navView.setNavigationItemSelectedListener(this)
         FirebaseAnalytics.getInstance(this.baseContext)
             .setCurrentScreen(this, javaClass.simpleName, javaClass.simpleName)
     }
 
     override fun onBackPressed() {
-        if (drawer_layout.isDrawerOpen(GravityCompat.START)) {
-            drawer_layout.closeDrawer(GravityCompat.START)
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
         } else {
             super.onBackPressed()
         }
@@ -46,6 +55,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.home, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        super.onPrepareOptionsMenu(menu)
+        menu?.findItem(R.id.nav_home)?.isVisible = true
+
         return true
     }
 
@@ -70,7 +86,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
         }
 
-        drawer_layout.closeDrawer(GravityCompat.START)
+        binding.drawerLayout.closeDrawer(GravityCompat.START)
         return true
     }
 
