@@ -11,7 +11,7 @@
     <string name="valueError">Digite um Valor</string>
     <string name="amountError">Digite um Tamanho</string>
     <string name="amountHelp">Em ml</string>
-    <string name="empty">Em ml</string>
+    <string name="empty" />
     <string name="calculator">Calculadora</string>
     <string name="about">Sobre</string>
     <string name="defaultNotification">Já calculou sua economia hoje?</string>

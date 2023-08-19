@@ -13,45 +13,37 @@ import br.com.joseneves.beerMais.android.Beer.BeerFragment
 import br.com.joseneves.beerMais.android.NewBeer.NewBeerFragment
 import br.com.joseneves.beerMais.android.R
 import br.com.joseneves.beerMais.android.databinding.ActivityHomeBinding
-import br.com.joseneves.beerMais.android.databinding.AppBarHomeBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityHomeBinding
-    private lateinit var bindingAppBar: AppBarHomeBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
-        bindingAppBar = AppBarHomeBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-        setSupportActionBar(bindingAppBar.toolbar)
-//        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         this.changeFragment(BeerFragment())
 
         val toggle = ActionBarDrawerToggle(
-            this, binding.drawerLayout, bindingAppBar.toolbar, R.string.empty, R.string.empty
+            this,
+            binding.drawerLayout,
+            binding.appBarHome.toolbar,
+            R.string.empty,
+            R.string.empty
         )
+
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
-        binding.navView.setNavigationItemSelectedListener(this)
+        supportActionBar?.setDisplayShowTitleEnabled(true)
+
         FirebaseAnalytics.getInstance(this.baseContext)
             .setCurrentScreen(this, javaClass.simpleName, javaClass.simpleName)
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            binding.drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
