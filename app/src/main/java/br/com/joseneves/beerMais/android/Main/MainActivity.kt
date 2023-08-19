@@ -16,7 +16,7 @@ import br.com.joseneves.beerMais.android.databinding.ActivityHomeBinding
 import com.google.firebase.analytics.FirebaseAnalytics
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
@@ -40,6 +40,35 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         binding.drawerLayout.addDrawerListener(toggle)
         toggle.syncState()
 
+        setSupportActionBar(binding.appBarHome.toolbar)
+
+        binding.navView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.nav_home -> {
+                    this.changeFragment(BeerFragment())
+                }
+
+                R.id.nav_about -> {
+                    this.changeFragment(AboutFragment())
+                }
+            }
+
+            binding.drawerLayout.closeDrawer(GravityCompat.START)
+            true
+        }
+
+        binding.appBarHome.toolbar.setOnMenuItemClickListener {
+            createBeer()
+            true
+        }
+
+        binding.appBarHome.toolbar.setNavigationOnClickListener {
+            binding.drawerLayout.openDrawer(
+                GravityCompat.START,
+                true
+            )
+        }
+
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
         FirebaseAnalytics.getInstance(this.baseContext)
@@ -51,50 +80,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
-        super.onPrepareOptionsMenu(menu)
-        menu?.findItem(R.id.nav_home)?.isVisible = true
-
-        return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.action_settings -> {
-                this.createBeer()
-                return true
-            }
-            else -> return super.onOptionsItemSelected(item)
-        }
-    }
-
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.nav_home -> {
-                this.changeFragment(BeerFragment())
-            }
-
-            R.id.nav_about -> {
-                this.changeFragment(AboutFragment())
-            }
-        }
-
-        binding.drawerLayout.closeDrawer(GravityCompat.START)
-        return true
-    }
-
     private fun createBeer() {
         val newBeer = NewBeerFragment()
         newBeer.show(supportFragmentManager, "new_beer_modal")
 
-        supportFragmentManager.executePendingTransactions()
+//        supportFragmentManager.executePendingTransactions()
 
-        newBeer.dialog?.setOnDismissListener {
-            getVisibleFragment().let {
-                val fragmentName = it!!.javaClass.simpleName
-                FirebaseAnalytics.getInstance(this.baseContext).setCurrentScreen(this, fragmentName, fragmentName)
-            }
-        }
+//        newBeer.dialog?.setOnDismissListener {
+//            getVisibleFragment().let {
+//                val fragmentName = it!!.javaClass.simpleName
+//                FirebaseAnalytics.getInstance(this.baseContext).setCurrentScreen(this, fragmentName, fragmentName)
+//            }
+//        }
     }
 
     private fun getVisibleFragment(): Fragment? {

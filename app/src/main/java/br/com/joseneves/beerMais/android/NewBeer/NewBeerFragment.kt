@@ -26,29 +26,16 @@ class NewBeerFragment : DialogFragment() {
     private lateinit var beerDAO: BeerDAO
     private lateinit var beer: Beer
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = NewBeerModalBinding.inflate(inflater, container, false)
-        return binding.root
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        FirebaseAnalytics.getInstance(context)
-            .setCurrentScreen(activity!!, javaClass.simpleName, javaClass.simpleName)
-    }
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        beerDAO = Database.instance(this.context!!).beerDAO()
-        newBeerDialog = Dialog(this.context!!)
+        _binding = NewBeerModalBinding.inflate(layoutInflater)
+
+        beerDAO = Database.instance(binding.root.context).beerDAO()
+        newBeerDialog = Dialog(binding.root.context)
         newBeerDialog.setContentView(R.layout.new_beer_modal)
         newBeerDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
