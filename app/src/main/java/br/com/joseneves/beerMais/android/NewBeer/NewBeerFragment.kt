@@ -174,6 +174,7 @@ class NewBeerFragment : DialogFragment() {
     }
 
     inner class SaveBeer() : AsyncTask<Void, Void, Void>() {
+        @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.add(beer)
 
@@ -182,6 +183,7 @@ class NewBeerFragment : DialogFragment() {
     }
 
     inner class DeleteBeer() : AsyncTask<Void, Void, Void>() {
+        @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.delete(beer)
 
@@ -190,6 +192,7 @@ class NewBeerFragment : DialogFragment() {
     }
 
     inner class UpdateBeer() : AsyncTask<Void, Void, Void>() {
+        @Deprecated("Deprecated in Java")
         override fun doInBackground(vararg p0: Void?): Void? {
             beerDAO.update(beer)
 
