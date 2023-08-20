@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
 
         amplitude = Amplitude(
             Configuration(
-                apiKey = "39f15c55f5a446b6e1e5b6e9e424ec73",
+                apiKey = "",
                 context = applicationContext
             )
         )
