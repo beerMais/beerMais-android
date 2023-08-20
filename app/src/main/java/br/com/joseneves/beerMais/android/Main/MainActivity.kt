@@ -11,6 +11,8 @@ import br.com.joseneves.beerMais.android.Beer.BeerFragment
 import br.com.joseneves.beerMais.android.NewBeer.NewBeerFragment
 import br.com.joseneves.beerMais.android.R
 import br.com.joseneves.beerMais.android.databinding.ActivityHomeBinding
+import com.amplitude.android.Amplitude
+import com.amplitude.android.Configuration
 import com.google.firebase.analytics.FirebaseAnalytics
 
 
@@ -18,10 +20,21 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
+    companion object {
+        lateinit var amplitude: Amplitude
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
+
+        amplitude = Amplitude(
+            Configuration(
+                apiKey = "39f15c55f5a446b6e1e5b6e9e424ec73",
+                context = applicationContext
+            )
+        )
 
         setContentView(binding.root)
 

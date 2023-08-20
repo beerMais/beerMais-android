@@ -11,8 +11,11 @@ import br.com.joseneves.beerMais.android.Database.Database
 import br.com.joseneves.beerMais.android.Model.Beer
 import com.google.android.gms.ads.AdRequest
 import android.view.ViewGroup
+import br.com.joseneves.beerMais.android.Main.MainActivity
 import br.com.joseneves.beerMais.android.R
 import br.com.joseneves.beerMais.android.databinding.NewBeerModalBinding
+import com.amplitude.android.Amplitude
+import com.amplitude.android.events.BaseEvent
 import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -28,6 +31,7 @@ class NewBeerFragment : DialogFragment() {
     private lateinit var newBeerDialog: Dialog
     private lateinit var beerDAO: BeerDAO
     private lateinit var beer: Beer
+    private lateinit var amplitude: Amplitude
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -192,6 +196,16 @@ class NewBeerFragment : DialogFragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 beerDAO.add(beer)
                 withContext(Dispatchers.Main) {
+
+                    val event = BaseEvent()
+                    event.eventType = "beer_created"
+                    event.eventProperties = mutableMapOf(
+                        "brand" to beer.brand,
+                        "amount" to beer.amount.toString(),
+                        "value" to beer.value.toString(),
+                    )
+                    MainActivity.amplitude.track(event)
+
                     completion()
                 }
             }
@@ -203,6 +217,16 @@ class NewBeerFragment : DialogFragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 beerDAO.delete(beer)
                 withContext(Dispatchers.Main) {
+
+                    val event = BaseEvent()
+                    event.eventType = "beer_deleted"
+                    event.eventProperties = mutableMapOf(
+                        "brand" to beer.brand,
+                        "amount" to beer.amount.toString(),
+                        "value" to beer.value.toString(),
+                    )
+                    MainActivity.amplitude.track(event)
+
                     completion()
                 }
             }
@@ -214,6 +238,16 @@ class NewBeerFragment : DialogFragment() {
             CoroutineScope(Dispatchers.IO).launch {
                 beerDAO.update(beer)
                 withContext(Dispatchers.Main) {
+
+                    val event = BaseEvent()
+                    event.eventType = "beer_updated"
+                    event.eventProperties = mutableMapOf(
+                        "brand" to beer.brand,
+                        "amount" to beer.amount.toString(),
+                        "value" to beer.value.toString(),
+                    )
+                    MainActivity.amplitude.track(event)
+
                     completion()
                 }
             }
