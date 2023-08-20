@@ -1,6 +1,7 @@
 package br.com.joseneves.beerMais.android.NewBeer
 
 import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.DialogFragment
@@ -12,6 +13,7 @@ import com.google.android.gms.ads.AdRequest
 import android.view.ViewGroup
 import br.com.joseneves.beerMais.android.R
 import br.com.joseneves.beerMais.android.databinding.NewBeerModalBinding
+import com.google.firebase.analytics.FirebaseAnalytics
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -30,6 +32,17 @@ class NewBeerFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, javaClass.simpleName)
+        FirebaseAnalytics.getInstance(context).logEvent(
+            FirebaseAnalytics.Event.SCREEN_VIEW,
+            bundle
+        )
     }
 
     override fun onCreateView(

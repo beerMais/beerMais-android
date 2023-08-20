@@ -38,9 +38,15 @@ class BeerFragment : Fragment(), BeerContract.View {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        FirebaseAnalytics.getInstance(context)
-            .setCurrentScreen(this.activity!!, javaClass.simpleName, javaClass.simpleName)
+
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, javaClass.simpleName)
+        FirebaseAnalytics.getInstance(context).logEvent(
+            FirebaseAnalytics.Event.SCREEN_VIEW,
+            bundle
+        )
     }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

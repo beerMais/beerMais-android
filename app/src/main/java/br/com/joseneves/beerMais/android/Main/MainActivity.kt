@@ -1,12 +1,10 @@
 package br.com.joseneves.beerMais.android.Main
 
 import android.os.Bundle
-import com.google.android.material.navigation.NavigationView
-import androidx.core.view.GravityCompat
+import android.view.Menu
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import android.view.Menu
-import android.view.MenuItem
+import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import br.com.joseneves.beerMais.android.About.AboutFragment
 import br.com.joseneves.beerMais.android.Beer.BeerFragment
@@ -71,8 +69,12 @@ class MainActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayShowTitleEnabled(true)
 
-        FirebaseAnalytics.getInstance(this.baseContext)
-            .setCurrentScreen(this, javaClass.simpleName, javaClass.simpleName)
+        val bundle = Bundle()
+        bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, javaClass.simpleName)
+        FirebaseAnalytics.getInstance(binding.root.context).logEvent(
+            FirebaseAnalytics.Event.SCREEN_VIEW,
+            bundle
+        )
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -84,14 +86,20 @@ class MainActivity : AppCompatActivity() {
         val newBeer = NewBeerFragment()
         newBeer.show(supportFragmentManager, "new_beer_modal")
 
-//        supportFragmentManager.executePendingTransactions()
+        supportFragmentManager.executePendingTransactions()
 
-//        newBeer.dialog?.setOnDismissListener {
-//            getVisibleFragment().let {
-//                val fragmentName = it!!.javaClass.simpleName
-//                FirebaseAnalytics.getInstance(this.baseContext).setCurrentScreen(this, fragmentName, fragmentName)
-//            }
-//        }
+        newBeer.dialog?.setOnDismissListener {
+            getVisibleFragment().let {
+                it?.javaClass?.simpleName.let { fragmentName ->
+                    val bundle = Bundle()
+                    bundle.putString(FirebaseAnalytics.Param.SCREEN_NAME, fragmentName)
+                    FirebaseAnalytics.getInstance(binding.root.context).logEvent(
+                        FirebaseAnalytics.Event.SCREEN_VIEW,
+                        bundle
+                    )
+                }
+            }
+        }
     }
 
     private fun getVisibleFragment(): Fragment? {
