@@ -83,7 +83,7 @@ class NewBeerFragment : DialogFragment() {
     private fun getBeer(beer: Beer?): Beer? {
         val brand = binding.textInputLayoutBrand.editText?.text.toString()
 
-        val valueString = binding.textInputValue.editText?.text.toString()
+        val valueString = binding.textInputValue.editText?.text.toString().replace(",", ".")
         var value = 0.0f
         if (valueString.isNotEmpty()) {
             value = valueString.toFloat()
@@ -144,7 +144,9 @@ class NewBeerFragment : DialogFragment() {
 
         binding.textInputLayoutBrand.editText?.setText(beer.brand)
         binding.textInputAmount.editText?.setText(beer.amount.toString())
-        binding.textInputValue.editText?.setText(beer.value.toString())
+        binding.textInputValue.editText?.setText(
+            String.format("%.2f", beer.value).replace(".", ",")
+        )
 
         binding.addLinearLayout.visibility = View.GONE
         binding.editLinearLayout.visibility = View.VISIBLE
