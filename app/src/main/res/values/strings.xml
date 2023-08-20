@@ -11,9 +11,11 @@
     <string name="valueError">Digite um Valor</string>
     <string name="amountError">Digite um Tamanho</string>
     <string name="amountHelp">Em ml</string>
-    <string name="empty" />
+    <string name="empty"/>
     <string name="calculator">Calculadora</string>
     <string name="about">Sobre</string>
     <string name="defaultNotification">Já calculou sua economia hoje?</string>
     <string name="helperAddBeer">Clique em + para adicionar uma bebida</string>
+    <string name="version_label">"Versão "</string>
+    <string name="version_number">1.0.2</string>
 </resources>

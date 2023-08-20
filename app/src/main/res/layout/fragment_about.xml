@@ -34,8 +34,22 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="16dp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout2" android:layout_marginStart="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/adView" android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_marginBottom="8dp"
+        app:adSize="LARGE_BANNER"
+        app:adUnitId="ca-app-pub-3940256099942544/6300978111"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -45,12 +59,12 @@
             android:layout_marginBottom="8dp" app:layout_constraintBottom_toBottomOf="parent"
             android:id="@+id/linearLayout2">
         <TextView
-                android:text="Versão  "
+                android:text="@string/version_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:layout_weight="1"
                 android:textColor="#000000" android:textSize="16sp"/>
         <TextView
-                android:text="1.0.1"
+                android:text="@string/version_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" android:layout_weight="1"
                 android:textColor="#000000" android:textSize="16sp"/>

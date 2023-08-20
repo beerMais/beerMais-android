@@ -8,10 +8,16 @@ import android.view.ViewGroup
 import android.view.LayoutInflater
 import android.view.View
 import android.webkit.WebView
+import br.com.joseneves.beerMais.android.databinding.FragmentAboutBinding
+import com.google.android.gms.ads.AdRequest
 import com.google.firebase.analytics.FirebaseAnalytics
 
 
 class AboutFragment : Fragment() {
+
+    private var _binding: FragmentAboutBinding? = null
+    private val binding get() = _binding!!
+
     companion object {
 
         fun newInstance(): AboutFragment {
@@ -35,11 +41,14 @@ class AboutFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_about, container, false)
+        _binding = FragmentAboutBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.adView.loadAd(AdRequest.Builder().build())
 
         activity?.title = "Sobre"
 
