@@ -64,15 +64,15 @@ class BeerFragment : Fragment(), BeerContract.View {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        activity?.title = "Beer Mais"
+        activity?.title = getString(R.string.app_name)
 
         beerRecyclerView = view.findViewById(R.id.beer_recyclerView)
         setPresenter(BeerPresenter(this))
 
-        val database = Database.instance(this.context!!)
+        val database = Database.instance(binding.root.context)
         beerDAO = database.beerDAO()
 
-        beerDAO.all().observe(this, Observer { beers ->
+        beerDAO.all().observe(viewLifecycleOwner, Observer { beers ->
             beers?.let {
                 controlHelpMessage(beers.count())
                 presenter.calcRank(beers)
@@ -91,7 +91,7 @@ class BeerFragment : Fragment(), BeerContract.View {
         })
 
         beerRecyclerView?.layoutManager =
-            GridLayoutManager(this.context, 2)
+            GridLayoutManager(binding.root.context, 2)
     }
 
     override fun onDestroy() {
