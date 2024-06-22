@@ -56,7 +56,7 @@ class BeerAdapter(private val mDataList: List<Beer>) : RecyclerView.Adapter<Beer
         }
 
         override fun onClick(v: View) {
-            mClickListener.onClick(adapterPosition, v)
+            mClickListener.onClick(bindingAdapterPosition, v)
         }
     }
 }
